@@ -1,0 +1,51 @@
+nohup: ignoring input
+INFO  13:47:06,829 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  13:47:06,831 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.6-0-g89b7209, Compiled 2016/06/01 22:27:29 
+INFO  13:47:06,831 HelpFormatter - Copyright (c) 2010-2016 The Broad Institute 
+INFO  13:47:06,831 HelpFormatter - For support and documentation go to https://www.broadinstitute.org/gatk 
+INFO  13:47:06,831 HelpFormatter - [Sun Oct 09 13:47:06 EAT 2016] Executing on Linux 4.4.0-34-generic amd64 
+INFO  13:47:06,832 HelpFormatter - Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14 JdkDeflater 
+INFO  13:47:06,835 HelpFormatter - Program Args: -T HaplotypeCaller -R /home/classrooms/Workshop_low_pass/ref//human_g1k_v37_chr20.fa -I /home/classrooms/Workshop_low_pass/align//recal.default.bam --emitRefConfidence GVCF --dbsnp /home/classrooms/Workshop_low_pass/ref//dbsnp_135.b37.chr20.smallregion.vcf -o /home/classrooms/Workshop_low_pass/variant/output.raw.snps.indels.g.vcf 
+INFO  13:47:06,838 HelpFormatter - Executing as root@bionet on Linux 4.4.0-34-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14. 
+INFO  13:47:06,839 HelpFormatter - Date/Time: 2016/10/09 13:47:06 
+INFO  13:47:06,839 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  13:47:06,839 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  13:47:06,857 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  13:47:06,939 GenomeAnalysisEngine - Downsampling Settings: Method: BY_SAMPLE, Target Coverage: 500 
+INFO  13:47:06,946 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  13:47:06,965 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.02 
+INFO  13:47:06,975 HCMappingQualityFilter - Filtering out reads with MAPQ < 20 
+INFO  13:47:07,084 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  13:47:07,127 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  13:47:07,128 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  13:47:07,128 ProgressMeter -                 |      processed |    time |         per 1M |           |   total | remaining 
+INFO  13:47:07,128 ProgressMeter -        Location | active regions | elapsed | active regions | completed | runtime |   runtime 
+INFO  13:47:07,129 HaplotypeCaller - Standard Emitting and Calling confidence set to 0.0 for reference-model confidence output 
+INFO  13:47:07,129 HaplotypeCaller - All sites annotated with PLs forced to true for reference-model confidence output 
+WARN  13:47:07,169 InbreedingCoeff - Annotation will not be calculated. InbreedingCoeff requires at least 10 unrelated samples. 
+INFO  13:47:07,224 HaplotypeCaller - Using global mismapping rate of 45 => -4.5 in log10 likelihood units 
+INFO  13:47:30,681 ProgressMeter -     20:25451320              0.0    30.0 s           49.6 w       40.4%    74.0 s      44.0 s 
+Using AVX accelerated implementation of PairHMM
+INFO  13:47:38,184 VectorLoglessPairHMM - libVectorLoglessPairHMM unpacked successfully from GATK jar file 
+INFO  13:47:38,184 VectorLoglessPairHMM - Using vectorized implementation of PairHMM 
+WARN  13:47:38,241 HaplotypeScore - Annotation will not be calculated, must be called from UnifiedGenotyper 
+INFO  13:48:00,683 ProgressMeter -     20:42059187              0.0    60.0 s           99.2 w       66.7%    89.0 s      29.0 s 
+INFO  13:48:20,795 VectorLoglessPairHMM - Time spent in setup for JNI call : 0.005101332 
+INFO  13:48:20,796 PairHMM - Total compute time in PairHMM computeLikelihoods() : 0.247204673 
+INFO  13:48:20,796 HaplotypeCaller - Ran local assembly on 211560 active regions 
+INFO  13:48:20,800 ProgressMeter -            done       6.302552E7    80.0 s            1.0 s      100.0%    80.0 s       0.0 s 
+INFO  13:48:20,800 ProgressMeter - Total runtime 80.12 secs, 1.34 min, 0.02 hours 
+INFO  13:48:20,801 MicroScheduler - 5132 reads were filtered out during the traversal out of approximately 68434 total reads (7.50%) 
+INFO  13:48:20,801 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  13:48:20,801 MicroScheduler -   -> 4051 reads (5.92% of total) failing DuplicateReadFilter 
+INFO  13:48:20,801 MicroScheduler -   -> 0 reads (0.00% of total) failing FailsVendorQualityCheckFilter 
+INFO  13:48:20,801 MicroScheduler -   -> 1073 reads (1.57% of total) failing HCMappingQualityFilter 
+INFO  13:48:20,802 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+INFO  13:48:20,802 MicroScheduler -   -> 0 reads (0.00% of total) failing MappingQualityUnavailableFilter 
+INFO  13:48:20,802 MicroScheduler -   -> 8 reads (0.01% of total) failing NotPrimaryAlignmentFilter 
+INFO  13:48:20,802 MicroScheduler -   -> 0 reads (0.00% of total) failing UnmappedReadFilter 
+------------------------------------------------------------------------------------------
+Done. There were 2 WARN messages, the first 2 are repeated below.
+WARN  13:47:00,717 InbreedingCoeff - Annotation will not be calculated. InbreedingCoeff requires at least 10 unrelated samples. 
+WARN  13:47:38,241 HaplotypeScore - Annotation will not be calculated, must be called from UnifiedGenotyper 
+------------------------------------------------------------------------------------------

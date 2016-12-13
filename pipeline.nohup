@@ -1,0 +1,701 @@
++ targeted=20
++ referencedir=/home/classrooms/Workshop_low_pass/ref
++ bwa_index=/home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa
++ reference=/home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa
++ dbsnp=/home/classrooms/Workshop_low_pass/ref/dbsnp_135.b37.chr20.smallregion.vcf
++ TG_1000G=/home/classrooms/Workshop_low_pass/ref/1kg.pilot_release.merged.indels.sites.hg19.chr20.vcf
++ result=/home/classrooms/Workshop_low_pass/results
++ rm /home/classrooms/Workshop_low_pass/results/raw_variants.txt
++ read line
+++ echo 'HG00120.lowcoverage.chr20.smallregion /home/classrooms/Workshop_low_pass/fastq/HG00120.lowcoverage.chr20.smallregion_1.fastq /home/classrooms/Workshop_low_pass/fastq/HG00120.lowcoverage.chr20.smallregion_2.fastq'
+++ cut -d ' ' -f1
++ samplename=HG00120.lowcoverage.chr20.smallregion
+++ echo 'HG00120.lowcoverage.chr20.smallregion /home/classrooms/Workshop_low_pass/fastq/HG00120.lowcoverage.chr20.smallregion_1.fastq /home/classrooms/Workshop_low_pass/fastq/HG00120.lowcoverage.chr20.smallregion_2.fastq'
+++ cut -d ' ' -f2
++ read1=/home/classrooms/Workshop_low_pass/fastq/HG00120.lowcoverage.chr20.smallregion_1.fastq
+++ echo 'HG00120.lowcoverage.chr20.smallregion /home/classrooms/Workshop_low_pass/fastq/HG00120.lowcoverage.chr20.smallregion_1.fastq /home/classrooms/Workshop_low_pass/fastq/HG00120.lowcoverage.chr20.smallregion_2.fastq'
+++ cut -d ' ' -f3
++ read2=/home/classrooms/Workshop_low_pass/fastq/HG00120.lowcoverage.chr20.smallregion_2.fastq
++ align_res=/home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align
++ vars=/home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/variants
++ reports=/home/classrooms/Workshop_low_pass/results/reports
++ mkdir -p /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align
++ mkdir -p /home/classrooms/Workshop_low_pass/results/reports
++ mkdir -p /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/variants
++ rgheader='@RG\tID:HG00120.lowcoverage.chr20.smallregion\tPL:illumina\tPU:synthetic\tLB:synthetic\tDT:2016-7-1\tSM:HG00120.lowcoverage.chr20.smallregion'
++ bwa mem -M -t 4 -R '@RG\tID:HG00120.lowcoverage.chr20.smallregion\tPL:illumina\tPU:synthetic\tLB:synthetic\tDT:2016-7-1\tSM:HG00120.lowcoverage.chr20.smallregion' /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa /home/classrooms/Workshop_low_pass/fastq/HG00120.lowcoverage.chr20.smallregion_1.fastq /home/classrooms/Workshop_low_pass/fastq/HG00120.lowcoverage.chr20.smallregion_2.fastq
++ samtools view -@ 4 -bS
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 68568 sequences (5211168 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (0, 29335, 0, 1)
+[M::mem_pestat] skip orientation FF as there are not enough pairs
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (243, 381, 395)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 699)
+[M::mem_pestat] mean and std.dev: (320.17, 107.94)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 851)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_process_seqs] Processed 68568 reads in 8.616 CPU sec, 2.175 real sec
+[main] Version: 0.7.15-r1142-dirty
+[main] CMD: bwa mem -M -t 4 -R @RG\tID:HG00120.lowcoverage.chr20.smallregion\tPL:illumina\tPU:synthetic\tLB:synthetic\tDT:2016-7-1\tSM:HG00120.lowcoverage.chr20.smallregion /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa /home/classrooms/Workshop_low_pass/fastq/HG00120.lowcoverage.chr20.smallregion_1.fastq /home/classrooms/Workshop_low_pass/fastq/HG00120.lowcoverage.chr20.smallregion_2.fastq
+[main] Real time: 2.406 sec; CPU: 8.776 sec
++ exit_code=0
++ '[' '!' 0 -eq 0 ']'
++ '[' '!' -s /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.bam ']'
+++ samtools view -c /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.bam
++ numalign=68590
++ '[' 68590 -eq 0 ']'
++ samtools flagstat /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.bam
++ samtools sort -o /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.sorted.bam -@ 2 /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.bam
++ java -jar /usr/src/picard-tools/picard-tools-2.6.0/picard.jar MarkDuplicates I=/home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.sorted.bam O=/home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.dedup.bam M=/home/classrooms/Workshop_low_pass/results/reports/HG00120.lowcoverage.chr20.smallregion.dedup.txt
+[Wed Oct 26 16:34:32 EAT 2016] picard.sam.markduplicates.MarkDuplicates INPUT=[/home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.sorted.bam] OUTPUT=/home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.dedup.bam METRICS_FILE=/home/classrooms/Workshop_low_pass/results/reports/HG00120.lowcoverage.chr20.smallregion.dedup.txt    MAX_SEQUENCES_FOR_DISK_READ_ENDS_MAP=50000 MAX_FILE_HANDLES_FOR_READ_ENDS_MAP=8000 SORTING_COLLECTION_SIZE_RATIO=0.25 REMOVE_SEQUENCING_DUPLICATES=false TAGGING_POLICY=DontTag REMOVE_DUPLICATES=false ASSUME_SORTED=false DUPLICATE_SCORING_STRATEGY=SUM_OF_BASE_QUALITIES PROGRAM_RECORD_ID=MarkDuplicates PROGRAM_GROUP_NAME=MarkDuplicates READ_NAME_REGEX=<optimized capture of last three ':' separated fields as numeric values> OPTICAL_DUPLICATE_PIXEL_DISTANCE=100 VERBOSITY=INFO QUIET=false VALIDATION_STRINGENCY=STRICT COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_INDEX=false CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json
+[Wed Oct 26 16:34:32 EAT 2016] Executing as root@bionet on Linux 4.4.0-34-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14; Picard version: 2.6.0-SNAPSHOT
+INFO	2016-10-26 16:34:33	MarkDuplicates	Start of doWork freeMemory: 2010476520; totalMemory: 2025848832; maxMemory: 28631367680
+INFO	2016-10-26 16:34:33	MarkDuplicates	Reading input file and constructing read end information.
+INFO	2016-10-26 16:34:33	MarkDuplicates	Will retain up to 110120644 data points before spilling to disk.
+WARNING	2016-10-26 16:34:33	AbstractOpticalDuplicateFinderCommandLineProgram	A field field parsed out of a read name was expected to contain an integer and did not. Read name: SRR044232.21373061. Cause: String 'SRR044232.21373061' did not start with a parsable number.
+INFO	2016-10-26 16:34:36	MarkDuplicates	Read 68434 records. 0 pairs never matched.
+INFO	2016-10-26 16:34:36	MarkDuplicates	After buildSortedReadEndLists freeMemory: 1862652432; totalMemory: 2763522048; maxMemory: 28631367680
+INFO	2016-10-26 16:34:36	MarkDuplicates	Will retain up to 894730240 duplicate indices before spilling to disk.
+INFO	2016-10-26 16:34:38	MarkDuplicates	Traversing read pair information and detecting duplicates.
+INFO	2016-10-26 16:34:38	MarkDuplicates	Traversing fragment information and detecting duplicates.
+INFO	2016-10-26 16:34:38	MarkDuplicates	Sorting list of duplicate records.
+INFO	2016-10-26 16:34:39	MarkDuplicates	After generateDuplicateIndexes freeMemory: 3157650208; totalMemory: 10336337920; maxMemory: 28631367680
+INFO	2016-10-26 16:34:39	MarkDuplicates	Marking 4065 records as duplicates.
+INFO	2016-10-26 16:34:39	MarkDuplicates	Found 0 optical duplicate clusters.
+INFO	2016-10-26 16:34:39	MarkDuplicates	Reads are assumed to be ordered by: coordinate
+INFO	2016-10-26 16:34:40	MarkDuplicates	Before output close freeMemory: 10314878848; totalMemory: 10336337920; maxMemory: 28631367680
+INFO	2016-10-26 16:34:40	MarkDuplicates	After output close freeMemory: 10315219768; totalMemory: 10336337920; maxMemory: 28631367680
+[Wed Oct 26 16:34:40 EAT 2016] picard.sam.markduplicates.MarkDuplicates done. Elapsed time: 0.13 minutes.
+Runtime.totalMemory()=10336337920
++ exit_code=0
++ '[' '!' 0 -eq 0 ']'
++ '[' '!' -s /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.dedup.bam ']'
+++ samtools view -c /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.dedup.bam
++ numalign=68590
++ '[' 68590 -eq 0 ']'
++ samtools index /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.dedup.bam
++ java -jar /usr/src/gatk/gatk-3.6//GenomeAnalysisTK.jar -T BaseRecalibrator -R /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa -I /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.dedup.bam -L 20 -knownSites /home/classrooms/Workshop_low_pass/ref/dbsnp_135.b37.chr20.smallregion.vcf -knownSites /home/classrooms/Workshop_low_pass/ref/1kg.pilot_release.merged.indels.sites.hg19.chr20.vcf -o /home/classrooms/Workshop_low_pass/results/reports/HG00120.lowcoverage.chr20.smallregion.recal.table
+INFO  16:34:43,082 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:34:43,084 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.6-0-g89b7209, Compiled 2016/06/01 22:27:29 
+INFO  16:34:43,085 HelpFormatter - Copyright (c) 2010-2016 The Broad Institute 
+INFO  16:34:43,085 HelpFormatter - For support and documentation go to https://www.broadinstitute.org/gatk 
+INFO  16:34:43,085 HelpFormatter - [Wed Oct 26 16:34:43 EAT 2016] Executing on Linux 4.4.0-34-generic amd64 
+INFO  16:34:43,086 HelpFormatter - Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14 JdkDeflater 
+INFO  16:34:43,089 HelpFormatter - Program Args: -T BaseRecalibrator -R /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa -I /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.dedup.bam -L 20 -knownSites /home/classrooms/Workshop_low_pass/ref/dbsnp_135.b37.chr20.smallregion.vcf -knownSites /home/classrooms/Workshop_low_pass/ref/1kg.pilot_release.merged.indels.sites.hg19.chr20.vcf -o /home/classrooms/Workshop_low_pass/results/reports/HG00120.lowcoverage.chr20.smallregion.recal.table 
+INFO  16:34:43,092 HelpFormatter - Executing as root@bionet on Linux 4.4.0-34-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14. 
+INFO  16:34:43,093 HelpFormatter - Date/Time: 2016/10/26 16:34:43 
+INFO  16:34:43,093 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:34:43,093 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:34:43,102 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  16:34:43,190 GenomeAnalysisEngine - Downsampling Settings: No downsampling 
+INFO  16:34:43,196 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  16:34:43,216 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.02 
+INFO  16:34:43,277 IntervalUtils - Processing 63025520 bp from intervals 
+INFO  16:34:43,349 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  16:34:43,398 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  16:34:43,399 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  16:34:43,399 ProgressMeter -                 | processed |    time |    per 1M |           |   total | remaining 
+INFO  16:34:43,399 ProgressMeter -        Location |     reads | elapsed |     reads | completed | runtime |   runtime 
+INFO  16:34:43,430 BaseRecalibrator - The covariates being used here:  
+INFO  16:34:43,430 BaseRecalibrator - 	ReadGroupCovariate 
+INFO  16:34:43,430 BaseRecalibrator - 	QualityScoreCovariate 
+INFO  16:34:43,430 BaseRecalibrator - 	ContextCovariate 
+INFO  16:34:43,430 ContextCovariate - 		Context sizes: base substitution model 2, indel substitution model 3 
+INFO  16:34:43,431 BaseRecalibrator - 	CycleCovariate 
+INFO  16:34:43,433 ReadShardBalancer$1 - Loading BAM index data 
+INFO  16:34:43,541 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  16:34:48,912 BaseRecalibrator - Calculating quantized quality scores... 
+INFO  16:34:48,937 BaseRecalibrator - Writing recalibration report... 
+INFO  16:34:49,769 BaseRecalibrator - ...done! 
+INFO  16:34:49,769 BaseRecalibrator - BaseRecalibrator was able to recalibrate 63470 reads 
+INFO  16:34:49,772 ProgressMeter -            done     63470.0     6.0 s     100.0 s       53.9%    11.0 s       5.0 s 
+INFO  16:34:49,772 ProgressMeter - Total runtime 6.37 secs, 0.11 min, 0.00 hours 
+INFO  16:34:49,773 MicroScheduler - 4964 reads were filtered out during the traversal out of approximately 68434 total reads (7.25%) 
+INFO  16:34:49,773 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  16:34:49,773 MicroScheduler -   -> 4061 reads (5.93% of total) failing DuplicateReadFilter 
+INFO  16:34:49,774 MicroScheduler -   -> 0 reads (0.00% of total) failing FailsVendorQualityCheckFilter 
+INFO  16:34:49,774 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+INFO  16:34:49,774 MicroScheduler -   -> 0 reads (0.00% of total) failing MappingQualityUnavailableFilter 
+INFO  16:34:49,774 MicroScheduler -   -> 890 reads (1.30% of total) failing MappingQualityZeroFilter 
+INFO  16:34:49,774 MicroScheduler -   -> 13 reads (0.02% of total) failing NotPrimaryAlignmentFilter 
+INFO  16:34:49,775 MicroScheduler -   -> 0 reads (0.00% of total) failing UnmappedReadFilter 
+------------------------------------------------------------------------------------------
+Done. There were no warn messages.
+------------------------------------------------------------------------------------------
++ exit_code=0
++ '[' '!' 0 -eq 0 ']'
++ java -jar /usr/src/gatk/gatk-3.6//GenomeAnalysisTK.jar -T PrintReads -R /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa -I /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.dedup.bam -L 20 -BQSR /home/classrooms/Workshop_low_pass/results/reports/HG00120.lowcoverage.chr20.smallregion.recal.table -o /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.recal.bam
+INFO  16:34:51,940 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:34:51,942 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.6-0-g89b7209, Compiled 2016/06/01 22:27:29 
+INFO  16:34:51,943 HelpFormatter - Copyright (c) 2010-2016 The Broad Institute 
+INFO  16:34:51,943 HelpFormatter - For support and documentation go to https://www.broadinstitute.org/gatk 
+INFO  16:34:51,943 HelpFormatter - [Wed Oct 26 16:34:51 EAT 2016] Executing on Linux 4.4.0-34-generic amd64 
+INFO  16:34:51,943 HelpFormatter - Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14 JdkDeflater 
+INFO  16:34:51,947 HelpFormatter - Program Args: -T PrintReads -R /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa -I /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.dedup.bam -L 20 -BQSR /home/classrooms/Workshop_low_pass/results/reports/HG00120.lowcoverage.chr20.smallregion.recal.table -o /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.recal.bam 
+INFO  16:34:51,951 HelpFormatter - Executing as root@bionet on Linux 4.4.0-34-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14. 
+INFO  16:34:51,951 HelpFormatter - Date/Time: 2016/10/26 16:34:51 
+INFO  16:34:51,951 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:34:51,951 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:34:52,009 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  16:34:52,429 ContextCovariate - 		Context sizes: base substitution model 2, indel substitution model 3 
+INFO  16:34:52,462 GenomeAnalysisEngine - Downsampling Settings: No downsampling 
+INFO  16:34:52,469 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  16:34:52,490 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.02 
+INFO  16:34:52,506 IntervalUtils - Processing 63025520 bp from intervals 
+INFO  16:34:52,579 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  16:34:52,626 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  16:34:52,627 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  16:34:52,628 ProgressMeter -                 | processed |    time |    per 1M |           |   total | remaining 
+INFO  16:34:52,628 ProgressMeter -        Location |     reads | elapsed |     reads | completed | runtime |   runtime 
+INFO  16:34:52,635 ReadShardBalancer$1 - Loading BAM index data 
+INFO  16:34:52,733 ReadShardBalancer$1 - Done loading BAM index data 
+DEBUG	2016-10-26 16:34:53	BlockCompressedOutputStream	Using deflater: Deflater
+INFO  16:34:58,896 Walker - [REDUCE RESULT] Traversal result is: org.broadinstitute.gatk.engine.io.stubs.SAMFileWriterStub@65f96d58 
+INFO  16:34:58,911 ProgressMeter -            done     68434.0     6.0 s      91.0 s       85.8%     6.0 s       0.0 s 
+INFO  16:34:58,912 ProgressMeter - Total runtime 6.28 secs, 0.10 min, 0.00 hours 
+INFO  16:34:58,913 MicroScheduler - 0 reads were filtered out during the traversal out of approximately 68434 total reads (0.00%) 
+INFO  16:34:58,914 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  16:34:58,914 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+------------------------------------------------------------------------------------------
+Done. There were no warn messages.
+------------------------------------------------------------------------------------------
++ exit_code=0
++ '[' '!' 0 -eq 0 ']'
++ '[' '!' -s /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.recal.bam ']'
+++ samtools view -c /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.recal.bam
++ numalign=68434
++ '[' 68434 -eq 0 ']'
++ java -jar /usr/src/gatk/gatk-3.6//GenomeAnalysisTK.jar -T HaplotypeCaller -R /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa -I /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.recal.bam --emitRefConfidence GVCF --dbsnp /home/classrooms/Workshop_low_pass/ref/dbsnp_135.b37.chr20.smallregion.vcf -o /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/variants/HG00120.lowcoverage.chr20.smallregion.raw.snps.indels.g.vcf
+INFO  16:35:01,161 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:35:01,163 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.6-0-g89b7209, Compiled 2016/06/01 22:27:29 
+INFO  16:35:01,163 HelpFormatter - Copyright (c) 2010-2016 The Broad Institute 
+INFO  16:35:01,164 HelpFormatter - For support and documentation go to https://www.broadinstitute.org/gatk 
+INFO  16:35:01,164 HelpFormatter - [Wed Oct 26 16:35:01 EAT 2016] Executing on Linux 4.4.0-34-generic amd64 
+INFO  16:35:01,164 HelpFormatter - Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14 JdkDeflater 
+INFO  16:35:01,167 HelpFormatter - Program Args: -T HaplotypeCaller -R /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa -I /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/align/HG00120.lowcoverage.chr20.smallregion.recal.bam --emitRefConfidence GVCF --dbsnp /home/classrooms/Workshop_low_pass/ref/dbsnp_135.b37.chr20.smallregion.vcf -o /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/variants/HG00120.lowcoverage.chr20.smallregion.raw.snps.indels.g.vcf 
+INFO  16:35:01,171 HelpFormatter - Executing as root@bionet on Linux 4.4.0-34-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14. 
+INFO  16:35:01,171 HelpFormatter - Date/Time: 2016/10/26 16:35:01 
+INFO  16:35:01,171 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:35:01,172 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:35:01,190 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  16:35:01,276 GenomeAnalysisEngine - Downsampling Settings: Method: BY_SAMPLE, Target Coverage: 500 
+INFO  16:35:01,283 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  16:35:01,308 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.02 
+INFO  16:35:01,318 HCMappingQualityFilter - Filtering out reads with MAPQ < 20 
+INFO  16:35:01,427 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  16:35:01,473 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  16:35:01,474 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  16:35:01,474 ProgressMeter -                 |      processed |    time |         per 1M |           |   total | remaining 
+INFO  16:35:01,475 ProgressMeter -        Location | active regions | elapsed | active regions | completed | runtime |   runtime 
+INFO  16:35:01,476 HaplotypeCaller - Standard Emitting and Calling confidence set to 0.0 for reference-model confidence output 
+INFO  16:35:01,476 HaplotypeCaller - All sites annotated with PLs forced to true for reference-model confidence output 
+WARN  16:35:01,519 InbreedingCoeff - Annotation will not be calculated. InbreedingCoeff requires at least 10 unrelated samples. 
+INFO  16:35:01,589 HaplotypeCaller - Using global mismapping rate of 45 => -4.5 in log10 likelihood units 
+INFO  16:35:31,479 ProgressMeter -     20:25557985              0.0    30.0 s           49.6 w       40.6%    73.0 s      43.0 s 
+Using AVX accelerated implementation of PairHMM
+INFO  16:35:38,971 VectorLoglessPairHMM - libVectorLoglessPairHMM unpacked successfully from GATK jar file 
+INFO  16:35:38,972 VectorLoglessPairHMM - Using vectorized implementation of PairHMM 
+WARN  16:35:39,028 HaplotypeScore - Annotation will not be calculated, must be called from UnifiedGenotyper 
+INFO  16:36:01,482 ProgressMeter -     20:42343887              0.0    60.0 s           99.2 w       67.2%    89.0 s      29.0 s 
+INFO  16:36:21,024 VectorLoglessPairHMM - Time spent in setup for JNI call : 0.005553417000000001 
+INFO  16:36:21,024 PairHMM - Total compute time in PairHMM computeLikelihoods() : 0.250405765 
+INFO  16:36:21,025 HaplotypeCaller - Ran local assembly on 211560 active regions 
+INFO  16:36:21,029 ProgressMeter -            done       6.302552E7    79.0 s            1.0 s      100.0%    79.0 s       0.0 s 
+INFO  16:36:21,029 ProgressMeter - Total runtime 79.56 secs, 1.33 min, 0.02 hours 
+INFO  16:36:21,029 MicroScheduler - 5132 reads were filtered out during the traversal out of approximately 68434 total reads (7.50%) 
+INFO  16:36:21,030 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  16:36:21,030 MicroScheduler -   -> 4051 reads (5.92% of total) failing DuplicateReadFilter 
+INFO  16:36:21,030 MicroScheduler -   -> 0 reads (0.00% of total) failing FailsVendorQualityCheckFilter 
+INFO  16:36:21,030 MicroScheduler -   -> 1073 reads (1.57% of total) failing HCMappingQualityFilter 
+INFO  16:36:21,030 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+INFO  16:36:21,030 MicroScheduler -   -> 0 reads (0.00% of total) failing MappingQualityUnavailableFilter 
+INFO  16:36:21,030 MicroScheduler -   -> 8 reads (0.01% of total) failing NotPrimaryAlignmentFilter 
+INFO  16:36:21,031 MicroScheduler -   -> 0 reads (0.00% of total) failing UnmappedReadFilter 
+------------------------------------------------------------------------------------------
+Done. There were 2 WARN messages, the first 2 are repeated below.
+WARN  16:35:01,519 InbreedingCoeff - Annotation will not be calculated. InbreedingCoeff requires at least 10 unrelated samples. 
+WARN  16:35:39,028 HaplotypeScore - Annotation will not be calculated, must be called from UnifiedGenotyper 
+------------------------------------------------------------------------------------------
++ exit_code=0
++ '[' '!' 0 -eq 0 ']'
++ '[' '!' -s /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/variants/HG00120.lowcoverage.chr20.smallregion.raw.snps.indels.g.vcf ']'
++ echo ' -V /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/variants/HG00120.lowcoverage.chr20.smallregion.raw.snps.indels.g.vcf '
++ read line
+++ echo 'HG00111.lowcoverage.chr20.smallregion /home/classrooms/Workshop_low_pass/fastq/HG00111.lowcoverage.chr20.smallregion_1.fastq /home/classrooms/Workshop_low_pass/fastq/HG00111.lowcoverage.chr20.smallregion_2.fastq'
+++ cut -d ' ' -f1
++ samplename=HG00111.lowcoverage.chr20.smallregion
+++ echo 'HG00111.lowcoverage.chr20.smallregion /home/classrooms/Workshop_low_pass/fastq/HG00111.lowcoverage.chr20.smallregion_1.fastq /home/classrooms/Workshop_low_pass/fastq/HG00111.lowcoverage.chr20.smallregion_2.fastq'
+++ cut -d ' ' -f2
++ read1=/home/classrooms/Workshop_low_pass/fastq/HG00111.lowcoverage.chr20.smallregion_1.fastq
+++ echo 'HG00111.lowcoverage.chr20.smallregion /home/classrooms/Workshop_low_pass/fastq/HG00111.lowcoverage.chr20.smallregion_1.fastq /home/classrooms/Workshop_low_pass/fastq/HG00111.lowcoverage.chr20.smallregion_2.fastq'
+++ cut -d ' ' -f3
++ read2=/home/classrooms/Workshop_low_pass/fastq/HG00111.lowcoverage.chr20.smallregion_2.fastq
++ align_res=/home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align
++ vars=/home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/variants
++ reports=/home/classrooms/Workshop_low_pass/results/reports
++ mkdir -p /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align
++ mkdir -p /home/classrooms/Workshop_low_pass/results/reports
++ mkdir -p /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/variants
++ rgheader='@RG\tID:HG00111.lowcoverage.chr20.smallregion\tPL:illumina\tPU:synthetic\tLB:synthetic\tDT:2016-7-1\tSM:HG00111.lowcoverage.chr20.smallregion'
++ bwa mem -M -t 4 -R '@RG\tID:HG00111.lowcoverage.chr20.smallregion\tPL:illumina\tPU:synthetic\tLB:synthetic\tDT:2016-7-1\tSM:HG00111.lowcoverage.chr20.smallregion' /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa /home/classrooms/Workshop_low_pass/fastq/HG00111.lowcoverage.chr20.smallregion_1.fastq /home/classrooms/Workshop_low_pass/fastq/HG00111.lowcoverage.chr20.smallregion_2.fastq
++ samtools view -@ 4 -bS
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 63070 sequences (5739370 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (0, 27813, 0, 0)
+[M::mem_pestat] skip orientation FF as there are not enough pairs
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (473, 480, 488)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (443, 518)
+[M::mem_pestat] mean and std.dev: (480.28, 11.10)
+[M::mem_pestat] low and high boundaries for proper pairs: (428, 533)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_process_seqs] Processed 63070 reads in 8.140 CPU sec, 2.052 real sec
+[main] Version: 0.7.15-r1142-dirty
+[main] CMD: bwa mem -M -t 4 -R @RG\tID:HG00111.lowcoverage.chr20.smallregion\tPL:illumina\tPU:synthetic\tLB:synthetic\tDT:2016-7-1\tSM:HG00111.lowcoverage.chr20.smallregion /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa /home/classrooms/Workshop_low_pass/fastq/HG00111.lowcoverage.chr20.smallregion_1.fastq /home/classrooms/Workshop_low_pass/fastq/HG00111.lowcoverage.chr20.smallregion_2.fastq
+[main] Real time: 2.271 sec; CPU: 8.288 sec
++ exit_code=0
++ '[' '!' 0 -eq 0 ']'
++ '[' '!' -s /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.bam ']'
+++ samtools view -c /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.bam
++ numalign=63096
++ '[' 63096 -eq 0 ']'
++ samtools flagstat /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.bam
++ samtools sort -o /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.sorted.bam -@ 2 /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.bam
++ java -jar /usr/src/picard-tools/picard-tools-2.6.0/picard.jar MarkDuplicates I=/home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.sorted.bam O=/home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.dedup.bam M=/home/classrooms/Workshop_low_pass/results/reports/HG00111.lowcoverage.chr20.smallregion.dedup.txt
+[Wed Oct 26 16:36:24 EAT 2016] picard.sam.markduplicates.MarkDuplicates INPUT=[/home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.sorted.bam] OUTPUT=/home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.dedup.bam METRICS_FILE=/home/classrooms/Workshop_low_pass/results/reports/HG00111.lowcoverage.chr20.smallregion.dedup.txt    MAX_SEQUENCES_FOR_DISK_READ_ENDS_MAP=50000 MAX_FILE_HANDLES_FOR_READ_ENDS_MAP=8000 SORTING_COLLECTION_SIZE_RATIO=0.25 REMOVE_SEQUENCING_DUPLICATES=false TAGGING_POLICY=DontTag REMOVE_DUPLICATES=false ASSUME_SORTED=false DUPLICATE_SCORING_STRATEGY=SUM_OF_BASE_QUALITIES PROGRAM_RECORD_ID=MarkDuplicates PROGRAM_GROUP_NAME=MarkDuplicates READ_NAME_REGEX=<optimized capture of last three ':' separated fields as numeric values> OPTICAL_DUPLICATE_PIXEL_DISTANCE=100 VERBOSITY=INFO QUIET=false VALIDATION_STRINGENCY=STRICT COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_INDEX=false CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json
+[Wed Oct 26 16:36:24 EAT 2016] Executing as root@bionet on Linux 4.4.0-34-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14; Picard version: 2.6.0-SNAPSHOT
+INFO	2016-10-26 16:36:24	MarkDuplicates	Start of doWork freeMemory: 2010476664; totalMemory: 2025848832; maxMemory: 28631367680
+INFO	2016-10-26 16:36:24	MarkDuplicates	Reading input file and constructing read end information.
+INFO	2016-10-26 16:36:24	MarkDuplicates	Will retain up to 110120644 data points before spilling to disk.
+WARNING	2016-10-26 16:36:25	AbstractOpticalDuplicateFinderCommandLineProgram	A field field parsed out of a read name was expected to contain an integer and did not. Read name: ERR020230.254762. Cause: String 'ERR020230.254762' did not start with a parsable number.
+INFO	2016-10-26 16:36:27	MarkDuplicates	Read 62926 records. 0 pairs never matched.
+INFO	2016-10-26 16:36:28	MarkDuplicates	After buildSortedReadEndLists freeMemory: 1867983864; totalMemory: 2768240640; maxMemory: 28631367680
+INFO	2016-10-26 16:36:28	MarkDuplicates	Will retain up to 894730240 duplicate indices before spilling to disk.
+INFO	2016-10-26 16:36:30	MarkDuplicates	Traversing read pair information and detecting duplicates.
+INFO	2016-10-26 16:36:30	MarkDuplicates	Traversing fragment information and detecting duplicates.
+INFO	2016-10-26 16:36:30	MarkDuplicates	Sorting list of duplicate records.
+INFO	2016-10-26 16:36:31	MarkDuplicates	After generateDuplicateIndexes freeMemory: 3157744280; totalMemory: 10336337920; maxMemory: 28631367680
+INFO	2016-10-26 16:36:31	MarkDuplicates	Marking 5706 records as duplicates.
+INFO	2016-10-26 16:36:31	MarkDuplicates	Found 0 optical duplicate clusters.
+INFO	2016-10-26 16:36:31	MarkDuplicates	Reads are assumed to be ordered by: coordinate
+INFO	2016-10-26 16:36:32	MarkDuplicates	Before output close freeMemory: 10314972704; totalMemory: 10336337920; maxMemory: 28631367680
+INFO	2016-10-26 16:36:32	MarkDuplicates	After output close freeMemory: 10315313656; totalMemory: 10336337920; maxMemory: 28631367680
+[Wed Oct 26 16:36:32 EAT 2016] picard.sam.markduplicates.MarkDuplicates done. Elapsed time: 0.13 minutes.
+Runtime.totalMemory()=10336337920
++ exit_code=0
++ '[' '!' 0 -eq 0 ']'
++ '[' '!' -s /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.dedup.bam ']'
+++ samtools view -c /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.dedup.bam
++ numalign=63096
++ '[' 63096 -eq 0 ']'
++ samtools index /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.dedup.bam
++ java -jar /usr/src/gatk/gatk-3.6//GenomeAnalysisTK.jar -T BaseRecalibrator -R /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa -I /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.dedup.bam -L 20 -knownSites /home/classrooms/Workshop_low_pass/ref/dbsnp_135.b37.chr20.smallregion.vcf -knownSites /home/classrooms/Workshop_low_pass/ref/1kg.pilot_release.merged.indels.sites.hg19.chr20.vcf -o /home/classrooms/Workshop_low_pass/results/reports/HG00111.lowcoverage.chr20.smallregion.recal.table
+INFO  16:36:34,634 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:36:34,636 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.6-0-g89b7209, Compiled 2016/06/01 22:27:29 
+INFO  16:36:34,637 HelpFormatter - Copyright (c) 2010-2016 The Broad Institute 
+INFO  16:36:34,637 HelpFormatter - For support and documentation go to https://www.broadinstitute.org/gatk 
+INFO  16:36:34,638 HelpFormatter - [Wed Oct 26 16:36:34 EAT 2016] Executing on Linux 4.4.0-34-generic amd64 
+INFO  16:36:34,638 HelpFormatter - Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14 JdkDeflater 
+INFO  16:36:34,699 HelpFormatter - Program Args: -T BaseRecalibrator -R /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa -I /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.dedup.bam -L 20 -knownSites /home/classrooms/Workshop_low_pass/ref/dbsnp_135.b37.chr20.smallregion.vcf -knownSites /home/classrooms/Workshop_low_pass/ref/1kg.pilot_release.merged.indels.sites.hg19.chr20.vcf -o /home/classrooms/Workshop_low_pass/results/reports/HG00111.lowcoverage.chr20.smallregion.recal.table 
+INFO  16:36:34,704 HelpFormatter - Executing as root@bionet on Linux 4.4.0-34-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14. 
+INFO  16:36:34,705 HelpFormatter - Date/Time: 2016/10/26 16:36:34 
+INFO  16:36:34,705 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:36:34,705 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:36:34,717 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  16:36:34,804 GenomeAnalysisEngine - Downsampling Settings: No downsampling 
+INFO  16:36:34,811 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  16:36:34,831 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.02 
+INFO  16:36:34,890 IntervalUtils - Processing 63025520 bp from intervals 
+INFO  16:36:34,960 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  16:36:35,030 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  16:36:35,031 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  16:36:35,031 ProgressMeter -                 | processed |    time |    per 1M |           |   total | remaining 
+INFO  16:36:35,031 ProgressMeter -        Location |     reads | elapsed |     reads | completed | runtime |   runtime 
+INFO  16:36:35,063 BaseRecalibrator - The covariates being used here:  
+INFO  16:36:35,063 BaseRecalibrator - 	ReadGroupCovariate 
+INFO  16:36:35,064 BaseRecalibrator - 	QualityScoreCovariate 
+INFO  16:36:35,064 BaseRecalibrator - 	ContextCovariate 
+INFO  16:36:35,064 ContextCovariate - 		Context sizes: base substitution model 2, indel substitution model 3 
+INFO  16:36:35,064 BaseRecalibrator - 	CycleCovariate 
+INFO  16:36:35,067 ReadShardBalancer$1 - Loading BAM index data 
+INFO  16:36:35,208 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  16:36:40,631 BaseRecalibrator - Calculating quantized quality scores... 
+INFO  16:36:40,659 BaseRecalibrator - Writing recalibration report... 
+INFO  16:36:41,798 BaseRecalibrator - ...done! 
+INFO  16:36:41,799 BaseRecalibrator - BaseRecalibrator was able to recalibrate 56259 reads 
+INFO  16:36:41,801 ProgressMeter -            done     56259.0     6.0 s     120.0 s       53.9%    11.0 s       5.0 s 
+INFO  16:36:41,802 ProgressMeter - Total runtime 6.77 secs, 0.11 min, 0.00 hours 
+INFO  16:36:41,802 MicroScheduler - 6667 reads were filtered out during the traversal out of approximately 62926 total reads (10.59%) 
+INFO  16:36:41,802 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  16:36:41,803 MicroScheduler -   -> 5706 reads (9.07% of total) failing DuplicateReadFilter 
+INFO  16:36:41,803 MicroScheduler -   -> 0 reads (0.00% of total) failing FailsVendorQualityCheckFilter 
+INFO  16:36:41,803 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+INFO  16:36:41,803 MicroScheduler -   -> 0 reads (0.00% of total) failing MappingQualityUnavailableFilter 
+INFO  16:36:41,803 MicroScheduler -   -> 950 reads (1.51% of total) failing MappingQualityZeroFilter 
+INFO  16:36:41,803 MicroScheduler -   -> 11 reads (0.02% of total) failing NotPrimaryAlignmentFilter 
+INFO  16:36:41,804 MicroScheduler -   -> 0 reads (0.00% of total) failing UnmappedReadFilter 
+------------------------------------------------------------------------------------------
+Done. There were no warn messages.
+------------------------------------------------------------------------------------------
++ exit_code=0
++ '[' '!' 0 -eq 0 ']'
++ java -jar /usr/src/gatk/gatk-3.6//GenomeAnalysisTK.jar -T PrintReads -R /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa -I /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.dedup.bam -L 20 -BQSR /home/classrooms/Workshop_low_pass/results/reports/HG00111.lowcoverage.chr20.smallregion.recal.table -o /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.recal.bam
+INFO  16:36:43,838 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:36:43,841 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.6-0-g89b7209, Compiled 2016/06/01 22:27:29 
+INFO  16:36:43,842 HelpFormatter - Copyright (c) 2010-2016 The Broad Institute 
+INFO  16:36:43,842 HelpFormatter - For support and documentation go to https://www.broadinstitute.org/gatk 
+INFO  16:36:43,842 HelpFormatter - [Wed Oct 26 16:36:43 EAT 2016] Executing on Linux 4.4.0-34-generic amd64 
+INFO  16:36:43,842 HelpFormatter - Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14 JdkDeflater 
+INFO  16:36:43,846 HelpFormatter - Program Args: -T PrintReads -R /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa -I /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.dedup.bam -L 20 -BQSR /home/classrooms/Workshop_low_pass/results/reports/HG00111.lowcoverage.chr20.smallregion.recal.table -o /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.recal.bam 
+INFO  16:36:43,849 HelpFormatter - Executing as root@bionet on Linux 4.4.0-34-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14. 
+INFO  16:36:43,850 HelpFormatter - Date/Time: 2016/10/26 16:36:43 
+INFO  16:36:43,850 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:36:43,850 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:36:43,966 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  16:36:44,459 ContextCovariate - 		Context sizes: base substitution model 2, indel substitution model 3 
+INFO  16:36:44,499 GenomeAnalysisEngine - Downsampling Settings: No downsampling 
+INFO  16:36:44,506 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  16:36:44,528 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.02 
+INFO  16:36:44,544 IntervalUtils - Processing 63025520 bp from intervals 
+INFO  16:36:44,614 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  16:36:44,679 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  16:36:44,679 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  16:36:44,680 ProgressMeter -                 | processed |    time |    per 1M |           |   total | remaining 
+INFO  16:36:44,680 ProgressMeter -        Location |     reads | elapsed |     reads | completed | runtime |   runtime 
+INFO  16:36:44,688 ReadShardBalancer$1 - Loading BAM index data 
+INFO  16:36:44,818 ReadShardBalancer$1 - Done loading BAM index data 
+DEBUG	2016-10-26 16:36:45	BlockCompressedOutputStream	Using deflater: Deflater
+INFO  16:36:51,632 Walker - [REDUCE RESULT] Traversal result is: org.broadinstitute.gatk.engine.io.stubs.SAMFileWriterStub@65f96d58 
+INFO  16:36:51,642 ProgressMeter -            done     62926.0     6.0 s     110.0 s       83.7%     7.0 s       1.0 s 
+INFO  16:36:51,643 ProgressMeter - Total runtime 6.96 secs, 0.12 min, 0.00 hours 
+INFO  16:36:51,643 MicroScheduler - 0 reads were filtered out during the traversal out of approximately 62926 total reads (0.00%) 
+INFO  16:36:51,643 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  16:36:51,644 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+------------------------------------------------------------------------------------------
+Done. There were no warn messages.
+------------------------------------------------------------------------------------------
++ exit_code=0
++ '[' '!' 0 -eq 0 ']'
++ '[' '!' -s /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.recal.bam ']'
+++ samtools view -c /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.recal.bam
++ numalign=62926
++ '[' 62926 -eq 0 ']'
++ java -jar /usr/src/gatk/gatk-3.6//GenomeAnalysisTK.jar -T HaplotypeCaller -R /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa -I /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.recal.bam --emitRefConfidence GVCF --dbsnp /home/classrooms/Workshop_low_pass/ref/dbsnp_135.b37.chr20.smallregion.vcf -o /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/variants/HG00111.lowcoverage.chr20.smallregion.raw.snps.indels.g.vcf
+INFO  16:36:53,878 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:36:53,881 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.6-0-g89b7209, Compiled 2016/06/01 22:27:29 
+INFO  16:36:53,882 HelpFormatter - Copyright (c) 2010-2016 The Broad Institute 
+INFO  16:36:53,882 HelpFormatter - For support and documentation go to https://www.broadinstitute.org/gatk 
+INFO  16:36:53,882 HelpFormatter - [Wed Oct 26 16:36:53 EAT 2016] Executing on Linux 4.4.0-34-generic amd64 
+INFO  16:36:53,882 HelpFormatter - Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14 JdkDeflater 
+INFO  16:36:53,886 HelpFormatter - Program Args: -T HaplotypeCaller -R /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa -I /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/align/HG00111.lowcoverage.chr20.smallregion.recal.bam --emitRefConfidence GVCF --dbsnp /home/classrooms/Workshop_low_pass/ref/dbsnp_135.b37.chr20.smallregion.vcf -o /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/variants/HG00111.lowcoverage.chr20.smallregion.raw.snps.indels.g.vcf 
+INFO  16:36:53,889 HelpFormatter - Executing as root@bionet on Linux 4.4.0-34-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14. 
+INFO  16:36:53,890 HelpFormatter - Date/Time: 2016/10/26 16:36:53 
+INFO  16:36:53,890 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:36:53,890 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:36:53,907 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  16:36:53,996 GenomeAnalysisEngine - Downsampling Settings: Method: BY_SAMPLE, Target Coverage: 500 
+INFO  16:36:54,002 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  16:36:54,026 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.02 
+INFO  16:36:54,035 HCMappingQualityFilter - Filtering out reads with MAPQ < 20 
+INFO  16:36:54,148 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  16:36:54,215 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  16:36:54,216 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  16:36:54,216 ProgressMeter -                 |      processed |    time |         per 1M |           |   total | remaining 
+INFO  16:36:54,217 ProgressMeter -        Location | active regions | elapsed | active regions | completed | runtime |   runtime 
+INFO  16:36:54,217 HaplotypeCaller - Standard Emitting and Calling confidence set to 0.0 for reference-model confidence output 
+INFO  16:36:54,217 HaplotypeCaller - All sites annotated with PLs forced to true for reference-model confidence output 
+WARN  16:36:54,257 InbreedingCoeff - Annotation will not be calculated. InbreedingCoeff requires at least 10 unrelated samples. 
+INFO  16:36:54,312 HaplotypeCaller - Using global mismapping rate of 45 => -4.5 in log10 likelihood units 
+INFO  16:37:24,223 ProgressMeter -     20:25514246              0.0    30.0 s           49.6 w       40.5%    74.0 s      44.0 s 
+Using AVX accelerated implementation of PairHMM
+INFO  16:37:31,563 VectorLoglessPairHMM - libVectorLoglessPairHMM unpacked successfully from GATK jar file 
+INFO  16:37:31,563 VectorLoglessPairHMM - Using vectorized implementation of PairHMM 
+WARN  16:37:31,630 HaplotypeScore - Annotation will not be calculated, must be called from UnifiedGenotyper 
+INFO  16:37:54,225 ProgressMeter -     20:43966934              0.0    60.0 s           99.2 w       69.8%    86.0 s      26.0 s 
+INFO  16:38:12,635 VectorLoglessPairHMM - Time spent in setup for JNI call : 0.0037833280000000003 
+INFO  16:38:12,635 PairHMM - Total compute time in PairHMM computeLikelihoods() : 0.165467012 
+INFO  16:38:12,636 HaplotypeCaller - Ran local assembly on 211110 active regions 
+INFO  16:38:12,641 ProgressMeter -            done       6.302552E7    78.0 s            1.0 s      100.0%    78.0 s       0.0 s 
+INFO  16:38:12,641 ProgressMeter - Total runtime 78.43 secs, 1.31 min, 0.02 hours 
+INFO  16:38:12,641 MicroScheduler - 6781 reads were filtered out during the traversal out of approximately 62926 total reads (10.78%) 
+INFO  16:38:12,642 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  16:38:12,642 MicroScheduler -   -> 5695 reads (9.05% of total) failing DuplicateReadFilter 
+INFO  16:38:12,642 MicroScheduler -   -> 0 reads (0.00% of total) failing FailsVendorQualityCheckFilter 
+INFO  16:38:12,642 MicroScheduler -   -> 1080 reads (1.72% of total) failing HCMappingQualityFilter 
+INFO  16:38:12,642 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+INFO  16:38:12,642 MicroScheduler -   -> 0 reads (0.00% of total) failing MappingQualityUnavailableFilter 
+INFO  16:38:12,643 MicroScheduler -   -> 6 reads (0.01% of total) failing NotPrimaryAlignmentFilter 
+INFO  16:38:12,643 MicroScheduler -   -> 0 reads (0.00% of total) failing UnmappedReadFilter 
+------------------------------------------------------------------------------------------
+Done. There were 2 WARN messages, the first 2 are repeated below.
+WARN  16:36:54,257 InbreedingCoeff - Annotation will not be calculated. InbreedingCoeff requires at least 10 unrelated samples. 
+WARN  16:37:31,630 HaplotypeScore - Annotation will not be calculated, must be called from UnifiedGenotyper 
+------------------------------------------------------------------------------------------
++ exit_code=0
++ '[' '!' 0 -eq 0 ']'
++ '[' '!' -s /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/variants/HG00111.lowcoverage.chr20.smallregion.raw.snps.indels.g.vcf ']'
++ echo ' -V /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/variants/HG00111.lowcoverage.chr20.smallregion.raw.snps.indels.g.vcf '
++ read line
+++ echo 'HG00108.lowcoverage.chr20.smallregion /home/classrooms/Workshop_low_pass/fastq/HG00108.lowcoverage.chr20.smallregion_1.fastq /home/classrooms/Workshop_low_pass/fastq/HG00108.lowcoverage.chr20.smallregion_2.fastq'
+++ cut -d ' ' -f1
++ samplename=HG00108.lowcoverage.chr20.smallregion
+++ echo 'HG00108.lowcoverage.chr20.smallregion /home/classrooms/Workshop_low_pass/fastq/HG00108.lowcoverage.chr20.smallregion_1.fastq /home/classrooms/Workshop_low_pass/fastq/HG00108.lowcoverage.chr20.smallregion_2.fastq'
+++ cut -d ' ' -f2
++ read1=/home/classrooms/Workshop_low_pass/fastq/HG00108.lowcoverage.chr20.smallregion_1.fastq
+++ echo 'HG00108.lowcoverage.chr20.smallregion /home/classrooms/Workshop_low_pass/fastq/HG00108.lowcoverage.chr20.smallregion_1.fastq /home/classrooms/Workshop_low_pass/fastq/HG00108.lowcoverage.chr20.smallregion_2.fastq'
+++ cut -d ' ' -f3
++ read2=/home/classrooms/Workshop_low_pass/fastq/HG00108.lowcoverage.chr20.smallregion_2.fastq
++ align_res=/home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align
++ vars=/home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/variants
++ reports=/home/classrooms/Workshop_low_pass/results/reports
++ mkdir -p /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align
++ mkdir -p /home/classrooms/Workshop_low_pass/results/reports
++ mkdir -p /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/variants
++ rgheader='@RG\tID:HG00108.lowcoverage.chr20.smallregion\tPL:illumina\tPU:synthetic\tLB:synthetic\tDT:2016-7-1\tSM:HG00108.lowcoverage.chr20.smallregion'
++ bwa mem -M -t 4 -R '@RG\tID:HG00108.lowcoverage.chr20.smallregion\tPL:illumina\tPU:synthetic\tLB:synthetic\tDT:2016-7-1\tSM:HG00108.lowcoverage.chr20.smallregion' /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa /home/classrooms/Workshop_low_pass/fastq/HG00108.lowcoverage.chr20.smallregion_1.fastq /home/classrooms/Workshop_low_pass/fastq/HG00108.lowcoverage.chr20.smallregion_2.fastq
++ samtools view -@ 4 -bS
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 60512 sequences (5506592 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (2, 26884, 0, 0)
+[M::mem_pestat] skip orientation FF as there are not enough pairs
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (458, 467, 475)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (424, 509)
+[M::mem_pestat] mean and std.dev: (466.38, 12.53)
+[M::mem_pestat] low and high boundaries for proper pairs: (407, 526)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_process_seqs] Processed 60512 reads in 7.732 CPU sec, 1.949 real sec
+[main] Version: 0.7.15-r1142-dirty
+[main] CMD: bwa mem -M -t 4 -R @RG\tID:HG00108.lowcoverage.chr20.smallregion\tPL:illumina\tPU:synthetic\tLB:synthetic\tDT:2016-7-1\tSM:HG00108.lowcoverage.chr20.smallregion /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa /home/classrooms/Workshop_low_pass/fastq/HG00108.lowcoverage.chr20.smallregion_1.fastq /home/classrooms/Workshop_low_pass/fastq/HG00108.lowcoverage.chr20.smallregion_2.fastq
+[main] Real time: 2.170 sec; CPU: 7.884 sec
++ exit_code=0
++ '[' '!' 0 -eq 0 ']'
++ '[' '!' -s /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.bam ']'
+++ samtools view -c /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.bam
++ numalign=60546
++ '[' 60546 -eq 0 ']'
++ samtools flagstat /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.bam
++ samtools sort -o /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.sorted.bam -@ 2 /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.bam
++ java -jar /usr/src/picard-tools/picard-tools-2.6.0/picard.jar MarkDuplicates I=/home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.sorted.bam O=/home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.dedup.bam M=/home/classrooms/Workshop_low_pass/results/reports/HG00108.lowcoverage.chr20.smallregion.dedup.txt
+[Wed Oct 26 16:38:16 EAT 2016] picard.sam.markduplicates.MarkDuplicates INPUT=[/home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.sorted.bam] OUTPUT=/home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.dedup.bam METRICS_FILE=/home/classrooms/Workshop_low_pass/results/reports/HG00108.lowcoverage.chr20.smallregion.dedup.txt    MAX_SEQUENCES_FOR_DISK_READ_ENDS_MAP=50000 MAX_FILE_HANDLES_FOR_READ_ENDS_MAP=8000 SORTING_COLLECTION_SIZE_RATIO=0.25 REMOVE_SEQUENCING_DUPLICATES=false TAGGING_POLICY=DontTag REMOVE_DUPLICATES=false ASSUME_SORTED=false DUPLICATE_SCORING_STRATEGY=SUM_OF_BASE_QUALITIES PROGRAM_RECORD_ID=MarkDuplicates PROGRAM_GROUP_NAME=MarkDuplicates READ_NAME_REGEX=<optimized capture of last three ':' separated fields as numeric values> OPTICAL_DUPLICATE_PIXEL_DISTANCE=100 VERBOSITY=INFO QUIET=false VALIDATION_STRINGENCY=STRICT COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_INDEX=false CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json
+[Wed Oct 26 16:38:16 EAT 2016] Executing as root@bionet on Linux 4.4.0-34-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14; Picard version: 2.6.0-SNAPSHOT
+INFO	2016-10-26 16:38:16	MarkDuplicates	Start of doWork freeMemory: 2010476664; totalMemory: 2025848832; maxMemory: 28631367680
+INFO	2016-10-26 16:38:16	MarkDuplicates	Reading input file and constructing read end information.
+INFO	2016-10-26 16:38:16	MarkDuplicates	Will retain up to 110120644 data points before spilling to disk.
+WARNING	2016-10-26 16:38:16	AbstractOpticalDuplicateFinderCommandLineProgram	A field field parsed out of a read name was expected to contain an integer and did not. Read name: ERR020229.55418457. Cause: String 'ERR020229.55418457' did not start with a parsable number.
+INFO	2016-10-26 16:38:19	MarkDuplicates	Read 60430 records. 0 pairs never matched.
+INFO	2016-10-26 16:38:19	MarkDuplicates	After buildSortedReadEndLists freeMemory: 1868238784; totalMemory: 2768240640; maxMemory: 28631367680
+INFO	2016-10-26 16:38:19	MarkDuplicates	Will retain up to 894730240 duplicate indices before spilling to disk.
+INFO	2016-10-26 16:38:21	MarkDuplicates	Traversing read pair information and detecting duplicates.
+INFO	2016-10-26 16:38:21	MarkDuplicates	Traversing fragment information and detecting duplicates.
+INFO	2016-10-26 16:38:21	MarkDuplicates	Sorting list of duplicate records.
+INFO	2016-10-26 16:38:22	MarkDuplicates	After generateDuplicateIndexes freeMemory: 3157743888; totalMemory: 10336337920; maxMemory: 28631367680
+INFO	2016-10-26 16:38:22	MarkDuplicates	Marking 5861 records as duplicates.
+INFO	2016-10-26 16:38:22	MarkDuplicates	Found 0 optical duplicate clusters.
+INFO	2016-10-26 16:38:22	MarkDuplicates	Reads are assumed to be ordered by: coordinate
+INFO	2016-10-26 16:38:23	MarkDuplicates	Before output close freeMemory: 10314965064; totalMemory: 10336337920; maxMemory: 28631367680
+INFO	2016-10-26 16:38:23	MarkDuplicates	After output close freeMemory: 10315036728; totalMemory: 10336337920; maxMemory: 28631367680
+[Wed Oct 26 16:38:23 EAT 2016] picard.sam.markduplicates.MarkDuplicates done. Elapsed time: 0.13 minutes.
+Runtime.totalMemory()=10336337920
++ exit_code=0
++ '[' '!' 0 -eq 0 ']'
++ '[' '!' -s /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.dedup.bam ']'
+++ samtools view -c /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.dedup.bam
++ numalign=60546
++ '[' 60546 -eq 0 ']'
++ samtools index /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.dedup.bam
++ java -jar /usr/src/gatk/gatk-3.6//GenomeAnalysisTK.jar -T BaseRecalibrator -R /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa -I /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.dedup.bam -L 20 -knownSites /home/classrooms/Workshop_low_pass/ref/dbsnp_135.b37.chr20.smallregion.vcf -knownSites /home/classrooms/Workshop_low_pass/ref/1kg.pilot_release.merged.indels.sites.hg19.chr20.vcf -o /home/classrooms/Workshop_low_pass/results/reports/HG00108.lowcoverage.chr20.smallregion.recal.table
+INFO  16:38:26,142 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:38:26,146 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.6-0-g89b7209, Compiled 2016/06/01 22:27:29 
+INFO  16:38:26,146 HelpFormatter - Copyright (c) 2010-2016 The Broad Institute 
+INFO  16:38:26,146 HelpFormatter - For support and documentation go to https://www.broadinstitute.org/gatk 
+INFO  16:38:26,146 HelpFormatter - [Wed Oct 26 16:38:26 EAT 2016] Executing on Linux 4.4.0-34-generic amd64 
+INFO  16:38:26,146 HelpFormatter - Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14 JdkDeflater 
+INFO  16:38:26,150 HelpFormatter - Program Args: -T BaseRecalibrator -R /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa -I /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.dedup.bam -L 20 -knownSites /home/classrooms/Workshop_low_pass/ref/dbsnp_135.b37.chr20.smallregion.vcf -knownSites /home/classrooms/Workshop_low_pass/ref/1kg.pilot_release.merged.indels.sites.hg19.chr20.vcf -o /home/classrooms/Workshop_low_pass/results/reports/HG00108.lowcoverage.chr20.smallregion.recal.table 
+INFO  16:38:26,154 HelpFormatter - Executing as root@bionet on Linux 4.4.0-34-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14. 
+INFO  16:38:26,154 HelpFormatter - Date/Time: 2016/10/26 16:38:26 
+INFO  16:38:26,154 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:38:26,154 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:38:26,163 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  16:38:26,249 GenomeAnalysisEngine - Downsampling Settings: No downsampling 
+INFO  16:38:26,256 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  16:38:26,276 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.02 
+INFO  16:38:26,338 IntervalUtils - Processing 63025520 bp from intervals 
+INFO  16:38:26,420 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  16:38:26,493 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  16:38:26,493 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  16:38:26,494 ProgressMeter -                 | processed |    time |    per 1M |           |   total | remaining 
+INFO  16:38:26,494 ProgressMeter -        Location |     reads | elapsed |     reads | completed | runtime |   runtime 
+INFO  16:38:26,522 BaseRecalibrator - The covariates being used here:  
+INFO  16:38:26,523 BaseRecalibrator - 	ReadGroupCovariate 
+INFO  16:38:26,523 BaseRecalibrator - 	QualityScoreCovariate 
+INFO  16:38:26,523 BaseRecalibrator - 	ContextCovariate 
+INFO  16:38:26,523 ContextCovariate - 		Context sizes: base substitution model 2, indel substitution model 3 
+INFO  16:38:26,524 BaseRecalibrator - 	CycleCovariate 
+INFO  16:38:26,526 ReadShardBalancer$1 - Loading BAM index data 
+INFO  16:38:26,662 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  16:38:32,213 BaseRecalibrator - Calculating quantized quality scores... 
+INFO  16:38:32,236 BaseRecalibrator - Writing recalibration report... 
+INFO  16:38:33,361 BaseRecalibrator - ...done! 
+INFO  16:38:33,362 BaseRecalibrator - BaseRecalibrator was able to recalibrate 53723 reads 
+INFO  16:38:33,364 ProgressMeter -            done     53723.0     6.0 s       2.1 m       68.4%     8.0 s       2.0 s 
+INFO  16:38:33,364 ProgressMeter - Total runtime 6.87 secs, 0.11 min, 0.00 hours 
+INFO  16:38:33,365 MicroScheduler - 6707 reads were filtered out during the traversal out of approximately 60430 total reads (11.10%) 
+INFO  16:38:33,365 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  16:38:33,365 MicroScheduler -   -> 5857 reads (9.69% of total) failing DuplicateReadFilter 
+INFO  16:38:33,366 MicroScheduler -   -> 0 reads (0.00% of total) failing FailsVendorQualityCheckFilter 
+INFO  16:38:33,366 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+INFO  16:38:33,366 MicroScheduler -   -> 0 reads (0.00% of total) failing MappingQualityUnavailableFilter 
+INFO  16:38:33,366 MicroScheduler -   -> 843 reads (1.40% of total) failing MappingQualityZeroFilter 
+INFO  16:38:33,366 MicroScheduler -   -> 7 reads (0.01% of total) failing NotPrimaryAlignmentFilter 
+INFO  16:38:33,366 MicroScheduler -   -> 0 reads (0.00% of total) failing UnmappedReadFilter 
+------------------------------------------------------------------------------------------
+Done. There were no warn messages.
+------------------------------------------------------------------------------------------
++ exit_code=0
++ '[' '!' 0 -eq 0 ']'
++ java -jar /usr/src/gatk/gatk-3.6//GenomeAnalysisTK.jar -T PrintReads -R /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa -I /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.dedup.bam -L 20 -BQSR /home/classrooms/Workshop_low_pass/results/reports/HG00108.lowcoverage.chr20.smallregion.recal.table -o /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.recal.bam
+INFO  16:38:35,428 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:38:35,431 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.6-0-g89b7209, Compiled 2016/06/01 22:27:29 
+INFO  16:38:35,431 HelpFormatter - Copyright (c) 2010-2016 The Broad Institute 
+INFO  16:38:35,431 HelpFormatter - For support and documentation go to https://www.broadinstitute.org/gatk 
+INFO  16:38:35,431 HelpFormatter - [Wed Oct 26 16:38:35 EAT 2016] Executing on Linux 4.4.0-34-generic amd64 
+INFO  16:38:35,432 HelpFormatter - Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14 JdkDeflater 
+INFO  16:38:35,435 HelpFormatter - Program Args: -T PrintReads -R /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa -I /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.dedup.bam -L 20 -BQSR /home/classrooms/Workshop_low_pass/results/reports/HG00108.lowcoverage.chr20.smallregion.recal.table -o /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.recal.bam 
+INFO  16:38:35,439 HelpFormatter - Executing as root@bionet on Linux 4.4.0-34-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14. 
+INFO  16:38:35,439 HelpFormatter - Date/Time: 2016/10/26 16:38:35 
+INFO  16:38:35,439 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:38:35,439 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:38:35,493 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  16:38:36,007 ContextCovariate - 		Context sizes: base substitution model 2, indel substitution model 3 
+INFO  16:38:36,060 GenomeAnalysisEngine - Downsampling Settings: No downsampling 
+INFO  16:38:36,069 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  16:38:36,104 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.03 
+INFO  16:38:36,123 IntervalUtils - Processing 63025520 bp from intervals 
+INFO  16:38:36,196 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  16:38:36,264 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  16:38:36,265 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  16:38:36,266 ProgressMeter -                 | processed |    time |    per 1M |           |   total | remaining 
+INFO  16:38:36,266 ProgressMeter -        Location |     reads | elapsed |     reads | completed | runtime |   runtime 
+INFO  16:38:36,274 ReadShardBalancer$1 - Loading BAM index data 
+INFO  16:38:36,398 ReadShardBalancer$1 - Done loading BAM index data 
+DEBUG	2016-10-26 16:38:37	BlockCompressedOutputStream	Using deflater: Deflater
+INFO  16:38:42,709 Walker - [REDUCE RESULT] Traversal result is: org.broadinstitute.gatk.engine.io.stubs.SAMFileWriterStub@65f96d58 
+INFO  16:38:42,721 ProgressMeter -            done     60430.0     6.0 s     106.0 s       83.7%     7.0 s       1.0 s 
+INFO  16:38:42,722 ProgressMeter - Total runtime 6.46 secs, 0.11 min, 0.00 hours 
+INFO  16:38:42,722 MicroScheduler - 0 reads were filtered out during the traversal out of approximately 60430 total reads (0.00%) 
+INFO  16:38:42,723 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  16:38:42,723 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+------------------------------------------------------------------------------------------
+Done. There were no warn messages.
+------------------------------------------------------------------------------------------
++ exit_code=0
++ '[' '!' 0 -eq 0 ']'
++ '[' '!' -s /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.recal.bam ']'
+++ samtools view -c /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.recal.bam
++ numalign=60430
++ '[' 60430 -eq 0 ']'
++ java -jar /usr/src/gatk/gatk-3.6//GenomeAnalysisTK.jar -T HaplotypeCaller -R /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa -I /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.recal.bam --emitRefConfidence GVCF --dbsnp /home/classrooms/Workshop_low_pass/ref/dbsnp_135.b37.chr20.smallregion.vcf -o /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/variants/HG00108.lowcoverage.chr20.smallregion.raw.snps.indels.g.vcf
+INFO  16:38:45,030 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:38:45,032 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.6-0-g89b7209, Compiled 2016/06/01 22:27:29 
+INFO  16:38:45,033 HelpFormatter - Copyright (c) 2010-2016 The Broad Institute 
+INFO  16:38:45,033 HelpFormatter - For support and documentation go to https://www.broadinstitute.org/gatk 
+INFO  16:38:45,033 HelpFormatter - [Wed Oct 26 16:38:44 EAT 2016] Executing on Linux 4.4.0-34-generic amd64 
+INFO  16:38:45,033 HelpFormatter - Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14 JdkDeflater 
+INFO  16:38:45,037 HelpFormatter - Program Args: -T HaplotypeCaller -R /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa -I /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/align/HG00108.lowcoverage.chr20.smallregion.recal.bam --emitRefConfidence GVCF --dbsnp /home/classrooms/Workshop_low_pass/ref/dbsnp_135.b37.chr20.smallregion.vcf -o /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/variants/HG00108.lowcoverage.chr20.smallregion.raw.snps.indels.g.vcf 
+INFO  16:38:45,040 HelpFormatter - Executing as root@bionet on Linux 4.4.0-34-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14. 
+INFO  16:38:45,042 HelpFormatter - Date/Time: 2016/10/26 16:38:45 
+INFO  16:38:45,042 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:38:45,042 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:38:45,059 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  16:38:45,141 GenomeAnalysisEngine - Downsampling Settings: Method: BY_SAMPLE, Target Coverage: 500 
+INFO  16:38:45,148 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  16:38:45,168 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.02 
+INFO  16:38:45,178 HCMappingQualityFilter - Filtering out reads with MAPQ < 20 
+INFO  16:38:45,293 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  16:38:45,361 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  16:38:45,361 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  16:38:45,362 ProgressMeter -                 |      processed |    time |         per 1M |           |   total | remaining 
+INFO  16:38:45,362 ProgressMeter -        Location | active regions | elapsed | active regions | completed | runtime |   runtime 
+INFO  16:38:45,362 HaplotypeCaller - Standard Emitting and Calling confidence set to 0.0 for reference-model confidence output 
+INFO  16:38:45,363 HaplotypeCaller - All sites annotated with PLs forced to true for reference-model confidence output 
+WARN  16:38:45,402 InbreedingCoeff - Annotation will not be calculated. InbreedingCoeff requires at least 10 unrelated samples. 
+INFO  16:38:45,467 HaplotypeCaller - Using global mismapping rate of 45 => -4.5 in log10 likelihood units 
+INFO  16:39:15,642 ProgressMeter -     20:26262223              0.0    30.0 s           50.1 w       41.7%    71.0 s      41.0 s 
+Using AVX accelerated implementation of PairHMM
+INFO  16:39:22,112 VectorLoglessPairHMM - libVectorLoglessPairHMM unpacked successfully from GATK jar file 
+INFO  16:39:22,113 VectorLoglessPairHMM - Using vectorized implementation of PairHMM 
+WARN  16:39:22,188 HaplotypeScore - Annotation will not be calculated, must be called from UnifiedGenotyper 
+WARN  16:39:32,200 AnnotationUtils - Annotation will not be calculated, genotype is not called 
+WARN  16:39:32,201 AnnotationUtils - Annotation will not be calculated, genotype is not called 
+INFO  16:39:45,645 ProgressMeter -     20:41991105              0.0    60.0 s           99.7 w       66.6%    90.0 s      30.0 s 
+INFO  16:40:07,770 VectorLoglessPairHMM - Time spent in setup for JNI call : 0.004535138 
+INFO  16:40:07,771 PairHMM - Total compute time in PairHMM computeLikelihoods() : 0.232710292 
+INFO  16:40:07,771 HaplotypeCaller - Ran local assembly on 211295 active regions 
+INFO  16:40:07,775 ProgressMeter -            done       6.302552E7    82.0 s            1.0 s      100.0%    82.0 s       0.0 s 
+INFO  16:40:07,775 ProgressMeter - Total runtime 82.41 secs, 1.37 min, 0.02 hours 
+INFO  16:40:07,776 MicroScheduler - 6815 reads were filtered out during the traversal out of approximately 60430 total reads (11.28%) 
+INFO  16:40:07,776 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  16:40:07,776 MicroScheduler -   -> 5851 reads (9.68% of total) failing DuplicateReadFilter 
+INFO  16:40:07,777 MicroScheduler -   -> 0 reads (0.00% of total) failing FailsVendorQualityCheckFilter 
+INFO  16:40:07,777 MicroScheduler -   -> 960 reads (1.59% of total) failing HCMappingQualityFilter 
+INFO  16:40:07,777 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+INFO  16:40:07,778 MicroScheduler -   -> 0 reads (0.00% of total) failing MappingQualityUnavailableFilter 
+INFO  16:40:07,778 MicroScheduler -   -> 4 reads (0.01% of total) failing NotPrimaryAlignmentFilter 
+INFO  16:40:07,778 MicroScheduler -   -> 0 reads (0.00% of total) failing UnmappedReadFilter 
+------------------------------------------------------------------------------------------
+Done. There were 4 WARN messages, the first 4 are repeated below.
+WARN  16:38:45,402 InbreedingCoeff - Annotation will not be calculated. InbreedingCoeff requires at least 10 unrelated samples. 
+WARN  16:39:22,188 HaplotypeScore - Annotation will not be calculated, must be called from UnifiedGenotyper 
+WARN  16:39:32,200 AnnotationUtils - Annotation will not be calculated, genotype is not called 
+WARN  16:39:32,201 AnnotationUtils - Annotation will not be calculated, genotype is not called 
+------------------------------------------------------------------------------------------
++ exit_code=0
++ '[' '!' 0 -eq 0 ']'
++ '[' '!' -s /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/variants/HG00108.lowcoverage.chr20.smallregion.raw.snps.indels.g.vcf ']'
++ echo ' -V /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/variants/HG00108.lowcoverage.chr20.smallregion.raw.snps.indels.g.vcf '
++ read line
+++ cat /home/classrooms/Workshop_low_pass/results/raw_variants.txt
++ java -jar /usr/src/gatk/gatk-3.6//GenomeAnalysisTK.jar -T GenotypeGVCFs -R /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa -V /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/variants/HG00120.lowcoverage.chr20.smallregion.raw.snps.indels.g.vcf -V /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/variants/HG00111.lowcoverage.chr20.smallregion.raw.snps.indels.g.vcf -V /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/variants/HG00108.lowcoverage.chr20.smallregion.raw.snps.indels.g.vcf -o /home/classrooms/Workshop_low_pass/results/joint_called.vcf
+INFO  16:40:09,942 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:40:09,944 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.6-0-g89b7209, Compiled 2016/06/01 22:27:29 
+INFO  16:40:09,944 HelpFormatter - Copyright (c) 2010-2016 The Broad Institute 
+INFO  16:40:09,945 HelpFormatter - For support and documentation go to https://www.broadinstitute.org/gatk 
+INFO  16:40:09,945 HelpFormatter - [Wed Oct 26 16:40:09 EAT 2016] Executing on Linux 4.4.0-34-generic amd64 
+INFO  16:40:09,945 HelpFormatter - Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14 JdkDeflater 
+INFO  16:40:09,949 HelpFormatter - Program Args: -T GenotypeGVCFs -R /home/classrooms/Workshop_low_pass/ref/human_g1k_v37_chr20.fa -V /home/classrooms/Workshop_low_pass/results/HG00120.lowcoverage.chr20.smallregion/variants/HG00120.lowcoverage.chr20.smallregion.raw.snps.indels.g.vcf -V /home/classrooms/Workshop_low_pass/results/HG00111.lowcoverage.chr20.smallregion/variants/HG00111.lowcoverage.chr20.smallregion.raw.snps.indels.g.vcf -V /home/classrooms/Workshop_low_pass/results/HG00108.lowcoverage.chr20.smallregion/variants/HG00108.lowcoverage.chr20.smallregion.raw.snps.indels.g.vcf -o /home/classrooms/Workshop_low_pass/results/joint_called.vcf 
+INFO  16:40:09,952 HelpFormatter - Executing as root@bionet on Linux 4.4.0-34-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14. 
+INFO  16:40:09,952 HelpFormatter - Date/Time: 2016/10/26 16:40:09 
+INFO  16:40:09,953 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:40:09,953 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:40:09,971 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  16:40:10,065 GenomeAnalysisEngine - Downsampling Settings: Method: BY_SAMPLE, Target Coverage: 1000 
+INFO  16:40:10,217 GenomeAnalysisEngine - Preparing for traversal 
+INFO  16:40:10,219 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  16:40:10,219 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  16:40:10,219 ProgressMeter -                 | processed |    time |    per 1M |           |   total | remaining 
+INFO  16:40:10,220 ProgressMeter -        Location |     sites | elapsed |     sites | completed | runtime |   runtime 
+WARN  16:40:10,324 StrandBiasTest - StrandBiasBySample annotation exists in input VCF header. Attempting to use StrandBiasBySample values to calculate strand bias annotation values. If no sample has the SB genotype annotation, annotation may still fail. 
+WARN  16:40:10,324 InbreedingCoeff - Annotation will not be calculated. InbreedingCoeff requires at least 10 unrelated samples. 
+WARN  16:40:10,325 StrandBiasTest - StrandBiasBySample annotation exists in input VCF header. Attempting to use StrandBiasBySample values to calculate strand bias annotation values. If no sample has the SB genotype annotation, annotation may still fail. 
+INFO  16:40:10,325 GenotypeGVCFs - Notice that the -ploidy parameter is ignored in GenotypeGVCFs tool as this is automatically determined by the input variant files 
+INFO  16:40:40,228 ProgressMeter -     20:27439501       2.7E7    30.0 s       1.0 s       43.5%    68.0 s      38.0 s 
+WARN  16:40:46,416 HaplotypeScore - Annotation will not be calculated, must be called from UnifiedGenotyper, not org.broadinstitute.gatk.tools.walkers.variantutils.GenotypeGVCFs 
+INFO  16:41:10,231 ProgressMeter -     20:41426701       4.1E7    60.0 s       1.0 s       65.7%    91.0 s      31.0 s 
+INFO  16:41:40,232 ProgressMeter -     20:61391101       6.1E7    90.0 s       1.0 s       97.4%    92.0 s       2.0 s 
+INFO  16:41:42,074 ProgressMeter -            done   6.302552E7    91.0 s       1.0 s      100.0%    91.0 s       0.0 s 
+INFO  16:41:42,074 ProgressMeter - Total runtime 91.86 secs, 1.53 min, 0.03 hours 
+------------------------------------------------------------------------------------------
+Done. There were 4 WARN messages, the first 4 are repeated below.
+WARN  16:40:10,324 StrandBiasTest - StrandBiasBySample annotation exists in input VCF header. Attempting to use StrandBiasBySample values to calculate strand bias annotation values. If no sample has the SB genotype annotation, annotation may still fail. 
+WARN  16:40:10,324 InbreedingCoeff - Annotation will not be calculated. InbreedingCoeff requires at least 10 unrelated samples. 
+WARN  16:40:10,325 StrandBiasTest - StrandBiasBySample annotation exists in input VCF header. Attempting to use StrandBiasBySample values to calculate strand bias annotation values. If no sample has the SB genotype annotation, annotation may still fail. 
+WARN  16:40:46,416 HaplotypeScore - Annotation will not be calculated, must be called from UnifiedGenotyper, not org.broadinstitute.gatk.tools.walkers.variantutils.GenotypeGVCFs 
+------------------------------------------------------------------------------------------
++ exit_code=0
++ '[' '!' 0 -eq 0 ']'
++ '[' '!' -s /home/classrooms/Workshop_low_pass/results/joint_called.vcf ']'
