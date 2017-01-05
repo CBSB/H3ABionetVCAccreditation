@@ -16,6 +16,10 @@ result=${projectdir}/results
 targeted=chr1
 
 ################################# These are output directories. Let's create them!
+########################################### Input files for my analysis
+#samplename=HG00120.lowcoverage.chr20.smallregion
+#read1=/home/classrooms/Workshop_low_pass/fastq/${samplename}_1.fastq 
+#read2=/home/classrooms/Workshop_low_pass/fastq/${samplename}_2.fastq
 
 ############################################# Load necessary modules
 module load bwa/0.7.15
@@ -29,6 +33,15 @@ gatkdir="/usr/src/gatk/gatk-3.6/"
 
 set -x
 ######################################## Preparing for alignment
+targeted=20
+referencedir=/home/classrooms/Workshop_low_pass/ref
+bwa_index=${referencedir}/human_g1k_v37_chr20.fa
+reference=${referencedir}/human_g1k_v37_chr20.fa
+dbsnp=${referencedir}/dbsnp_135.b37.chr20.smallregion.vcf
+TG_1000G=${referencedir}/1kg.pilot_release.merged.indels.sites.hg19.chr20.vcf
+
+############################################## These are output directories. Let's create them!
+result=/home/classrooms/Workshop_low_pass/results
 rm $result/raw_variants.txt
 
 while read line ; do
@@ -46,6 +59,12 @@ while read line ; do
 
 	######################################### Actual start of the pipeline
 	rgheader="@RG\tID:Set1\tSM:CBSB_Khartoum\tPL:illumina\tPU:synthetic\tLB:synthetic\tDT:2016-12-12"
+	mkdir -p  ${align_res}
+	mkdir -p $reports
+	mkdir -p $vars
+
+	###################################################################### Actual start of the pipeline
+	rgheader="@RG\tID:${samplename}\tPL:illumina\tPU:synthetic\tLB:synthetic\tDT:2016-7-1\tSM:${samplename}" 
 	bwa mem -M -t 4 -R "$rgheader" $bwa_index $read1 $read2  | samtools view -@ 4 -bS > ${align_res}/$samplename.bam
 	exit_code=$?
 	if [ ! $exit_code -eq 0 ]; then
@@ -70,6 +89,10 @@ while read line ; do
 
 	################################################################### Now, do marking duplicates
 	java -Xmx10g -XX:-UseGCOverheadLimit -jar $picarddir/picard.jar MarkDuplicates \
+	samtools sort -o $align_res/$samplename.sorted.bam -@ 2    ${align_res}/$samplename.bam
+
+	################################################################### Now, do marking duplicates
+	java -jar $picarddir/picard.jar MarkDuplicates \
 	      I=$align_res/$samplename.sorted.bam\
 	      O=$align_res/$samplename.dedup.bam \
 	      M=$reports/$samplename.dedup.txt
@@ -96,6 +119,8 @@ while read line ; do
 	###################################### Base recalibration stage: 
 	#-knownSites are verified here - from https://software.broadinstitute.org/gatk/guide/article?id=1247
 	java -Xmx10g -XX:-UseGCOverheadLimit -jar $gatkdir/GenomeAnalysisTK.jar \
+	############################################################################ Base recalibration stage:
+	java -jar $gatkdir/GenomeAnalysisTK.jar \
 		-T BaseRecalibrator\
 		-R $reference \
 		-I ${align_res}/$samplename.dedup.bam \
@@ -105,6 +130,9 @@ while read line ; do
 		-knownSites $TG_1000Gindels\
 		-o $reports/${samplename}.recal.table\
 		-nct 4
+		-knownSites $dbsnp\
+	 	-knownSites $TG_1000G\
+		-o $reports/${samplename}.recal.table
 
 	exit_code=$?
 	if [ ! $exit_code -eq 0 ]; then
@@ -148,6 +176,15 @@ comment_PrintReads
 		-o $vars/$samplename.raw.snps.indels.g.vcf\
 		-nct 4
 
+
+	########################################################################## Variant calling stage:
+	java -jar $gatkdir/GenomeAnalysisTK.jar \
+                -T HaplotypeCaller\
+                -R $reference\
+		-I $align_res/$samplename.recal.bam\
+		--emitRefConfidence GVCF \
+		--dbsnp $dbsnp \
+		-o $vars/$samplename.raw.snps.indels.g.vcf
        exit_code=$?
        if [ ! $exit_code -eq 0 ]; then
                echo 'HaplotypeCaller did NOT work'
