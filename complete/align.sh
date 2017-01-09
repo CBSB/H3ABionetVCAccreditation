@@ -20,12 +20,12 @@ module load samtools/1.3.1
 
 if [ `expr ${#tool}` -lt 1  ]; then
 	## do both bwa and novoalign
-	bwa mem -M -t 4 -R "$rgheader" $bwa_index $read1 $read2  | samtools view -@ 4 -bS > ${align_res}/$samplename.aligned.bwa.bam
-	./check_bam.sh ${align_res}/$samplename.aligned.bwa.bam Alignment_bwa $reports $samplename
-	
-	novoalign -c 4 -d $novoalign_index -f $read1 $read2 -o SAM $rgheader | samtools view -@ 4 -bS  > ${align_res}/$samplename.aligned.novoalign.bam
-	./check_bam.sh ${align_res}/$samplename.aligned.novoalign.bam Alignment_novoalign $reports $samplename 
-
+	for i in $(seq 1 1 8); do
+		bwa mem -M -t $i -R "$rgheader" $bwa_index $read1 $read2  | samtools view -@ $i -bS > ${align_res}/$samplename.aligned.bwa.bam
+		./check_bam.sh ${align_res}/$samplename.aligned.bwa.bam Alignment_bwa $reports $samplename
+		novoalign -c $i -d $novoalign_index -f $read1 $read2 -o SAM $rgheader | samtools view -@ $i -bS  > ${align_res}/$samplename.aligned.novoalign.bam
+		./check_bam.sh ${align_res}/$samplename.aligned.novoalign.bam Alignment_novoalign $reports $samplename
+	done
 else
 	# do novoalign or bwa
 	if [ $tool == 'bwa' ]; then
