@@ -1,16 +1,21 @@
 #!/bin/bash
 
 ############################################# Analysis variables:
-projectdir=/home/assessment
+#projectdir=/home/assessment
+projectdir=/home/azza/accreditation
 result=${projectdir}/results
 samplename=CBSB_Khartoum
-read1=${projectdir}/reads/H3A_NextGen_assessment.Chr1_50X.set1_read1.fq
-read2=${projectdir}/reads/H3A_NextGen_assessment.Chr1_50X.set1_read2.fq
+#read1=${projectdir}/reads/H3A_NextGen_assessment.Chr1_50X.set1_read1.fq
+#read2=${projectdir}/reads/H3A_NextGen_assessment.Chr1_50X.set1_read2.fq
+read1=/home/azza/swift-project/Dataset/HG00108.lowcoverage.chr20.smallregion_1.fastq
+read2=/home/azza/swift-project/Dataset/HG00108.lowcoverage.chr20.smallregion_2.fastq
+
 rgheader="@RG\tID:Set1\tSM:CBSB_Khartoum\tPL:illumina\tPU:synthetic\tLB:synthetic\tDT:2016-12-12"
 email=azzaea@gmail.com
 
-referencedir=${projectdir}/genome/hg19/
-bwa_index=${referencedir}/ucsc.hg19.fasta
+#referencedir=${projectdir}/genome/hg19/
+#bwa_index=${referencedir}/ucsc.hg19.fasta
+bwa_index=/home/azza/swift-project/Workshop_low_pass/ref/human_g1k_v37_chr20.fa
 novoalign_index=${referencedir}/ucsc.hg19.nix
 
 reference=${referencedir}/ucsc.hg19.fasta
@@ -38,9 +43,7 @@ mkdir -p $qc_res ${align_res} $vars_res $delivery $reports
 
 ############################################# Actual start of the pipeline
 	
-./aligh.sh $read1 $read2 $bwa_index $novoalign_index $rgheader $align_res $align_tool
-
-samtools flagstat ${align_res}/$samplename.bam >> $reports/${samplename}.summary.txt
+./align.sh $read1 $read2 $bwa_index $novoalign_index $rgheader $align_res $samplename $align_tool $reports
 
 if [ $analysis == "align" ];then
 	echo -e "\n ###### ANALYSIS = $analysis ends here. Wrapping up and quitting\n" >&2;
