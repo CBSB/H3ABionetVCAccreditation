@@ -1,5 +1,0 @@
-#!/bin/bash
-
-module load fastqc/0.11.5 
-
-fatstqc /home/assessment/reads/H3A_NextGen_assessment.Chr1_50X.set1_read1.fq  H3A_NextGen_assessment.Chr1_50X.set1_read2.fq

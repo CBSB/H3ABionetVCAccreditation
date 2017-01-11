@@ -28,6 +28,7 @@ targeted=chr1
 analysis=sort
 align_tool=bwa
 sort_tool=
+dedup_tool=
 
 ################################### Output directories
 qc_res=$result/${samplename}/qc
@@ -56,10 +57,8 @@ if [ $analysis == "sort" ];then
 	exit
 fi
 
-
- 
 ################################################################### Now, do marking duplicates
-./markdup.sh
+./markdup.sh $align_res/$samplename.sorted.$sort_tool.bam $align_res $samplename $reports $email $analysis $dedup_tool
 
 ./index.sh ${align_res}/$samplename.dedup.bam
 
