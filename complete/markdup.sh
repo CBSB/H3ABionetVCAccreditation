@@ -52,7 +52,25 @@ if [ `expr ${#tool}` -lt 1  ]; then
                 samtools rmdup  $inputbam  $align_res/benchmarking/$samplename.dedup.samtools.$i.bam 
                 end=`date `
                 echo -e "samtools_$i\t$start\t$end" >> $reports/timings.$analysis
-                ./check_bam.sh ${align_res}/benchmarking/$samplename.dedup.picard.$i.bam dedup_picard_$i $reports $samplename $email
-                echo -e "################ picard markduplicates done for $i cores #############"
+                ./check_bam.sh ${align_res}/benchmarking/$samplename.dedup.samtools.$i.bam dedup_samtools_$i $reports $samplename $email
+                echo -e "################ samtools markduplicates done for $i cores #############"
 
-#samtools totally removes duplicates; picard can give you the option to remove or mark
+                start=`date `
+                sambamba markdup -t $i  $inputbam  $align_res/benchmarking/$samplename.dedup.sambamba.$i.bam 
+                end=`date `
+                echo -e "sambamba_$i\t$start\t$end" >> $reports/timings.$analysis
+                ./check_bam.sh ${align_res}/benchmarking/$samplename.dedup.sambamba.$i.bam dedup_sambamba_$i $reports $samplename $email
+                echo -e "################ sambamba markduplicates done for $i cores #############"
+
+		############# This is how far I got: 11/1/2017######## :)
+	        start=`date `
+                novosort markdup -t $i  $inputbam  $align_res/benchmarking/$samplename.dedup.sambamba.$i.bam 
+                end=`date `
+                echo -e "sambamba_$i\t$start\t$end" >> $reports/timings.$analysis
+                ./check_bam.sh ${align_res}/benchmarking/$samplename.dedup.sambamba.$i.bam dedup_sambamba_$i $reports $samplename $email
+                echo -e "################ sambamba markduplicates done for $i cores #############"
+
+
+		#samtools: "Remove potential PCR duplicates: if multiple read pairs have identical external coordinates, only retain the pair with highest mapping quality. In the paired-end mode, this command ONLY works with FR orientation and requires ISIZE is correctly set. IT does not work for unpaired reads (e.g. two ends mapped to different chromosomes or orphan reads)."
+	       # picard can give you the option to remove or mark
+       	       # sambabmab: "Marks (by default) or removes duplicate reads. For determining whether a read is a duplicate or not, the same criteria as in Picard are used." It also allows specifying the number of threads to use. It also gives control to the compression level of the resulting file. However, "External sort is not implemented. Thus, memory consumption grows by 2Gb per each 100M reads. Check that you have enough RAM before running the tool." 
