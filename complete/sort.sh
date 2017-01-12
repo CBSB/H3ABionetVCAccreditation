@@ -1,9 +1,10 @@
 #!/bin/bash
 
-#This should contains options for sorting. 
+#This should contains options for indexing. 
 # 1. samtools
 # 2. picard
 # 3. sambamba
+# 4. novosort
 
 echo -e "################## Parsing command line arguments ##############"
 set -x
@@ -62,7 +63,7 @@ if [ `expr ${#tool}` -lt 1  ]; then
 		echo -e "################ picard sort done for $i cores #############"
 
 		start=`date `
-		novosort -c $i $inputbam -o $align_res/benchmarking/$samplename.sorted.novosort.$i.bam #-6
+		novosort -c $i $inputbam > $align_res/benchmarking/$samplename.sorted.novosort.$i.bam #-6
 		end=`date `
 		echo -e "novosort_$i\t$start\t$end" >> $reports/timings.$analysis
 		./check_bam.sh ${align_res}/benchmarking/$samplename.sorted.novosort.$i.bam sorting_novosort_$i $reports $samplename $email
@@ -95,7 +96,7 @@ end=`date `
 		;;
 	novosort)
 		start=`date `
-		novosort -c 4 $inputbam -o $align_res/benchmarking/$samplename.sorted.novosort.bam
+		novosort -c 4 $inputbam > $align_res/benchmarking/$samplename.sorted.novosort.bam
 		end=`date `
                 echo -e "novosort\t$start\t$end" >> $reports/timings.$analysis
                 ./check_bam.sh ${align_res}/benchmarking/$samplename.sorted.novosort.bam sorting_novosort $reports $samplename $email

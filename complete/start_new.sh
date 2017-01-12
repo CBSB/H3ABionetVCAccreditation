@@ -60,7 +60,8 @@ fi
 ################################################################### Now, do marking duplicates
 ./markdup.sh $align_res/$samplename.sorted.$sort_tool.bam $align_res $samplename $reports $email $analysis $dedup_tool
 
-./index.sh ${align_res}/$samplename.dedup.bam
+./index.sh ${align_res}/$samplename.dedup.$dedup_tool.bam $align_res $samplename $reports $email $analysis $dedup_tool
+
 
 ./bqvc.sh
 
