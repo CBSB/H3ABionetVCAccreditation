@@ -78,28 +78,28 @@ else
 		samtools sort -o $align_res/$samplename.sorted.samtools.bam -@ 4 $inputbam
 		end=`date `
 		echo -e "samtools\t$start\t$end" >> $reports/timings.$analysis
-		./check_bam.sh ${align_res}/benchmarking/$samplename.sorted.samtools.bam sorting_samtools $reports $samplename $email
+		./check_bam.sh ${align_res}//$samplename.sorted.samtools.bam sorting_samtools $reports $samplename $email
 		;;
 	sambamba)
 		start=`date `
-		sambamba sort -o $align_res/benchmarking/$samplename.sorted.sambamba.bam -t 4 $inputbam
+		sambamba sort -o $align_res//$samplename.sorted.sambamba.bam -t 4 $inputbam
 end=`date `
                 echo -e "sambamba\t$start\t$end" >> $reports/timings.$analysis
-                ./check_bam.sh ${align_res}/benchmarking/$samplename.sorted.sambamba.bam sorting_sambamba $reports $samplename $email
+                ./check_bam.sh ${align_res}//$samplename.sorted.sambamba.bam sorting_sambamba $reports $samplename $email
 		;;
 	picard)
 		start=`date `
-		java -jar $picarddir/picard.jar SortSam I=$inputbam O=$align_res/benchmarking/$samplename.sorted.picard.bam SORT_ORDER=coordinate
+		java -jar $picarddir/picard.jar SortSam I=$inputbam O=$align_res//$samplename.sorted.picard.bam SORT_ORDER=coordinate
                 end=`date `
                 echo -e "picard\t$start\t$end" >> $reports/timings.$analysis
-                ./check_bam.sh ${align_res}/benchmarking/$samplename.sorted.picard.bam sorting_picard $reports $samplename $email
+                ./check_bam.sh ${align_res}//$samplename.sorted.picard.bam sorting_picard $reports $samplename $email
 		;;
 	novosort)
 		start=`date `
-		novosort -c 4 $inputbam > $align_res/benchmarking/$samplename.sorted.novosort.bam
+		novosort -c 4 $inputbam > $align_res//$samplename.sorted.novosort.bam
 		end=`date `
                 echo -e "novosort\t$start\t$end" >> $reports/timings.$analysis
-                ./check_bam.sh ${align_res}/benchmarking/$samplename.sorted.novosort.bam sorting_novosort $reports $samplename $email
+                ./check_bam.sh ${align_res}//$samplename.sorted.novosort.bam sorting_novosort $reports $samplename $email
 
 	esac
 fi

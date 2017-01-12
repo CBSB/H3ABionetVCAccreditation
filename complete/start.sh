@@ -25,9 +25,10 @@ TG_1000Gsnps=${referencedir}/1000G_phase1.snps.high_confidence.hg19.sites.vcf
 targeted=chr1
 
 ################################### Specific analysis options and tools
-analysis=sort
+analysis=dedup
 align_tool=bwa
-sort_tool=
+sort_tool=novosort
+dedup_tool=
 
 ################################### Output directories
 qc_res=$result/${samplename}/qc
@@ -56,12 +57,22 @@ if [ $analysis == "sort" ];then
 	exit
 fi
 
-
- 
 ################################################################### Now, do marking duplicates
-./markdup.sh
+./markdup.sh $align_res/$samplename.sorted.$sort_tool.bam $align_res $samplename $reports $email $analysis $dedup_tool
 
-./index.sh ${align_res}/$samplename.dedup.bam
+if [ $analysis == "dedup" ];then
+	echo -e "\n ###### ANALYSIS = $analysis ends here. Wrapping up and quitting\n" | mail -s "accreditation pipeline" $email
+	exit
+fi
+
+
+./index.sh ${align_res}/$samplename.dedup.$dedup_tool.bam $align_res $samplename $reports $email $analysis $dedup_tool
+if [ $analysis == "index" ];then
+	echo -e "\n ###### ANALYSIS = $analysis ends here. Wrapping up and quitting\n" | mail -s "accreditation pipeline" $email
+	exit
+fi
+
+
 
 ./bqvc.sh
 

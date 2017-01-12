@@ -25,9 +25,9 @@ TG_1000Gsnps=${referencedir}/1000G_phase1.snps.high_confidence.hg19.sites.vcf
 targeted=chr1
 
 ################################### Specific analysis options and tools
-analysis=sort
+analysis=index
 align_tool=bwa
-sort_tool=
+sort_tool=samtools
 dedup_tool=
 
 ################################### Output directories
@@ -60,7 +60,18 @@ fi
 ################################################################### Now, do marking duplicates
 ./markdup.sh $align_res/$samplename.sorted.$sort_tool.bam $align_res $samplename $reports $email $analysis $dedup_tool
 
+if [ $analysis == "dedup" ];then
+	echo -e "\n ###### ANALYSIS = $analysis ends here. Wrapping up and quitting\n" | mail -s "accreditation pipeline" $email
+	exit
+fi
+
+
 ./index.sh ${align_res}/$samplename.dedup.$dedup_tool.bam $align_res $samplename $reports $email $analysis $dedup_tool
+if [ $analysis == "index" ];then
+	echo -e "\n ###### ANALYSIS = $analysis ends here. Wrapping up and quitting\n" | mail -s "accreditation pipeline" $email
+	exit
+fi
+
 
 
 ./bqvc.sh
