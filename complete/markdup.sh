@@ -10,7 +10,7 @@
 
 echo -e "################## Parsing command line arguments ##############"
 set -x
-if [ $# -lt 6 ]; then
+if [ $# -lt 7 ]; then
    echo -e "$0: error in calling the script, revise the arguments!" |  mail -s "accreditation pipeline" azzaea@gmail.com
    exit
 fi
@@ -20,7 +20,8 @@ samplename=$3
 reports=$4
 email=$5
 analysis=$6
-tool=$7
+align_tool=$7
+tool=$8
 
 echo -e "##################### Loading needed modules ###################"
 set +x
@@ -65,7 +66,7 @@ if [ `expr ${#tool}` -lt 1  ]; then
                 echo -e "################ sambamba markduplicates done for $i cores #############"
 
 	        start=`date `
-                novosort --markDuplicates -c $i $inputbam > $align_res/benchmarking/$samplename.dedup.novosort.$i.bam
+                novosort --markDuplicates -i -c $i -o $align_res/benchmarking/$samplename.dedup.novosort.$i.bam ${align_res}/${samplename}.aligned.${align_tool}.bam 
                 end=`date `
                 echo -e "novosort_$i\t$start\t$end" >> $reports/timings.$analysis
                 ./check_bam.sh ${align_res}/benchmarking/$samplename.dedup.novosort.$i.bam dedup_novosort_$i $reports $samplename $email
@@ -101,7 +102,7 @@ else
 			;;
 		novosort)
 			start=`date `
-			novosort --markDuplicates -c 4 $inputbam > $align_res//$samplename.dedup.novosort.bam
+			novosort --markDuplicates -c 4 -i -o $align_res//$samplename.dedup.novosort.bam ${align_res}/${samplename}.aligned.${align_tool}.bam 
 			end=`date `
 			echo -e "novosort\t$start\t$end" >> $reports/timings.$analysis
 			./check_bam.sh ${align_res}//$samplename.dedup.novosort.bam dedup_novosort $reports $samplename $email

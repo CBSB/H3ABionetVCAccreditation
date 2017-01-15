@@ -95,11 +95,6 @@ end=`date `
                 ./check_bam.sh ${align_res}//$samplename.sorted.picard.bam sorting_picard $reports $samplename $email
 		;;
 	novosort)
-		start=`date `
-		novosort -c 4 $inputbam > $align_res//$samplename.sorted.novosort.bam
-		end=`date `
-                echo -e "novosort\t$start\t$end" >> $reports/timings.$analysis
-                ./check_bam.sh ${align_res}//$samplename.sorted.novosort.bam sorting_novosort $reports $samplename $email
-
+		# nososort is an all-in-one tool. Processing is done in the markduplicates.sh script instead of here
 	esac
 fi

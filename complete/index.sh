@@ -31,7 +31,8 @@ set -x
 
 if [ `expr ${#tool}` -lt 1  ]; then
         echo -e "##################################################"
-        echo -e "No tool is selected, doing samtools, picard, novosort & sambamba"
+        echo -e "No tool is selected, doing samtools, picard  & sambamba"
+	echo -e "Benchmarking novosort is skipped here, as it does sort+dedup+index all in one-liner command"
         echo -e "##################################################"
 	if [ ! -d "$align_res/benchmarking" ]; then 
 		 mkdir -p $align_res/benchmarking
@@ -62,11 +63,6 @@ if [ `expr ${#tool}` -lt 1  ]; then
 		./check_bam.sh ${align_res}/benchmarking/$samplename.indexed.picard.$i.bam indexing_picard_$i $reports $samplename $email
 		echo -e "################ picard index done for $i cores #############"
 
-		start=`date `
-		novosort -c $i $inputbam -i -o $align_res/benchmarking/$samplename.indexed.novosort.$i.bam #-6
-		end=`date `
-		echo -e "novosort_$i\t$start\t$end" >> $reports/timings.$analysis
-		./check_bam.sh ${align_res}/benchmarking/$samplename.indexed.novosort.$i.bam sorting_novosort_$i $reports $samplename $email
 		# samtools index is not  multi-threaded tool!
 		# novosort does a lot: sorting, merging, indexing, and marking duplicates at once
 		# there is no multi-threading option in picard
@@ -95,11 +91,9 @@ else
                 ./check_bam.sh ${align_res}/$samplename.indexed.picard.bam indexing_picard $reports $samplename $email
 		;;
 	novosort)
-		start=`date `
-		novosort -c 4 $inputbam -i -o $align_res/$samplename.indexed.novosort.bam #-6
-		end=`date `
-                echo -e "novosort\t$start\t$end" >> $reports/timings.$analysis
-                ./check_bam.sh ${align_res}/$samplename.indexed.novosort.bam sorting_novosort $reports $samplename $email
+		# processing already done in the markdup.sh script! 
+		cp $inputbam $align_res/$samplename.indexed.novosort.bam
+		./check_bam.sh ${align_res}/$samplename.indexed.novosort.bam indexing_novosort $reports $samplename $email
 
 	esac
 fi

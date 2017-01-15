@@ -25,9 +25,9 @@ TG_1000Gsnps=${referencedir}/1000G_phase1.snps.high_confidence.hg19.sites.vcf
 targeted=chr1
 
 ################################### Specific analysis options and tools
-analysis=dedup
-align_tool=bwa
-sort_tool=novosort
+analysis=align #{align | sort | dedup}
+align_tool= #{bwa | novoalign}
+sort_tool= #{samtools | sambamba| picard | novosort}
 dedup_tool=
 
 ################################### Output directories
@@ -41,19 +41,22 @@ mkdir -p $qc_res ${align_res} $vars_res $delivery $reports
 
 ############################################# Actual start of the pipeline
 dstat -t -c --disk-util --top-cpu --top-io --top-mem -s --output $reports/profile.complete_pipeline_${analysis}.log 1 18000 &
+dsprocess=$(ps -aux | grep dstat | awk '{ print $2}' |head -n 1)
 echo -e "PROCESS\tSTART_TIME\tEND_TIME" >$reports/timings.$analysis
 
 ./align.sh $read1 $read2 $bwa_index $novoalign_index $rgheader $align_res $samplename $reports $email $align_tool
 
 if [ $analysis == "align" ];then
 	echo -e "\n ###### ANALYSIS = $analysis ends here. Wrapping up and quitting\n" | mail -s "accreditation pipeline" $email
+	kill -9 $dsprocess
 	exit
 fi
 
-./sort.sh ${align_res}/${samplename}.aligned.${align_tool}.bam $align_res $samplename $reports $email $analysis $sort_tool
+./sort.sh ${align_res}/${samplename}.aligned.${align_tool}.bam $align_res $samplename $reports $email $analysis $align_tool $sort_tool
 
 if [ $analysis == "sort" ];then
 	echo -e "\n ###### ANALYSIS = $analysis ends here. Wrapping up and quitting\n" | mail -s "accreditation pipeline" $email
+	kill -9 $dsprocess
 	exit
 fi
 
@@ -62,6 +65,7 @@ fi
 
 if [ $analysis == "dedup" ];then
 	echo -e "\n ###### ANALYSIS = $analysis ends here. Wrapping up and quitting\n" | mail -s "accreditation pipeline" $email
+	kill -9 $dsprocess
 	exit
 fi
 
@@ -69,6 +73,7 @@ fi
 ./index.sh ${align_res}/$samplename.dedup.$dedup_tool.bam $align_res $samplename $reports $email $analysis $dedup_tool
 if [ $analysis == "index" ];then
 	echo -e "\n ###### ANALYSIS = $analysis ends here. Wrapping up and quitting\n" | mail -s "accreditation pipeline" $email
+	kill -9 $dsprocess
 	exit
 fi
 
@@ -87,5 +92,6 @@ java -jar $gatkdir/GenomeAnalysisTK.jar \
 	-D $dbsnp129\
 	-noEV -EV CompOverlap -EV IndelSummary -EV TiTvVariantEvaluator -EV CountVariants -EV MultiallelicSummary
 
+kill -9 $dsprocess
 
 echo "Pipeline (vanialla gatk) run finished! yeeeey!"| mail -s "accreditation pipeline" $email

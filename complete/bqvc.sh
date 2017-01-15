@@ -4,7 +4,25 @@
 # 1. GATK
 # 2. Freebayes
 
+echo -e "################## Parsing command line arguments ##############"
+set -x
+if [ $# -lt 6 ]; then
+   echo -e "$0: error in calling the script, revise the arguments!" |  mail -s "accreditation pipeline" azzaea@gmail.com
+   exit
+fi
+inputbam=$1
+align_res=$2
+samplename=$3
+reports=$4
+email=$5
+analysis=$6
+tool=$7
+
+echo -e "##################### Loading needed modules ###################"
+set +x
+
 module load gatk/3.6
+Module load freebayes/1.1.0 
 gatkdir="/usr/src/gatk/gatk-3.6/"
 ###################################### Base recalibration stage: 
 #-knownSites are verified here - from https://software.broadinstitute.org/gatk/guide/article?id=1247
