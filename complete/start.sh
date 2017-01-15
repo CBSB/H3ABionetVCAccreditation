@@ -25,10 +25,12 @@ TG_1000Gsnps=${referencedir}/1000G_phase1.snps.high_confidence.hg19.sites.vcf
 targeted=chr1
 
 ################################### Specific analysis options and tools
-analysis=align #{align | sort | dedup}
-align_tool= #{bwa | novoalign}
+analysis=sort #{align | sort | dedup}
+align_tool=bwa #{bwa | novoalign}
 sort_tool= #{samtools | sambamba| picard | novosort}
-dedup_tool=
+dedup_tool= #{picard | samtools | sambamba | novosort}
+index_tool= #{samtools | sambamba | picard | novosort}
+vcall_tool= #{gatk | freebayes}
 
 ################################### Output directories
 qc_res=$result/${samplename}/qc
@@ -52,7 +54,7 @@ if [ $analysis == "align" ];then
 	exit
 fi
 
-./sort.sh ${align_res}/${samplename}.aligned.${align_tool}.bam $align_res $samplename $reports $email $analysis $align_tool $sort_tool
+./sort.sh ${align_res}/${samplename}.aligned.${align_tool}.bam $align_res $samplename $reports $email $analysis $sort_tool
 
 if [ $analysis == "sort" ];then
 	echo -e "\n ###### ANALYSIS = $analysis ends here. Wrapping up and quitting\n" | mail -s "accreditation pipeline" $email
@@ -61,7 +63,7 @@ if [ $analysis == "sort" ];then
 fi
 
 ################################################################### Now, do marking duplicates
-./markdup.sh $align_res/$samplename.sorted.$sort_tool.bam $align_res $samplename $reports $email $analysis $dedup_tool
+./markdup.sh $align_res/$samplename.sorted.$sort_tool.bam $align_res $samplename $reports $email $analysis $align_tool $dedup_tool
 
 if [ $analysis == "dedup" ];then
 	echo -e "\n ###### ANALYSIS = $analysis ends here. Wrapping up and quitting\n" | mail -s "accreditation pipeline" $email
@@ -70,7 +72,7 @@ if [ $analysis == "dedup" ];then
 fi
 
 
-./index.sh ${align_res}/$samplename.dedup.$dedup_tool.bam $align_res $samplename $reports $email $analysis $dedup_tool
+./index.sh ${align_res}/$samplename.dedup.$dedup_tool.bam $align_res $samplename $reports $email $analysis $index_tool
 if [ $analysis == "index" ];then
 	echo -e "\n ###### ANALYSIS = $analysis ends here. Wrapping up and quitting\n" | mail -s "accreditation pipeline" $email
 	kill -9 $dsprocess
@@ -79,7 +81,7 @@ fi
 
 
 
-./bqvc.sh
+./bqvc.sh ${align_res}/$samplename.indexed.$index_tool.bam $align_res $samplename $reports $email $analysis $vcall_tool
 
 
 ## You need to add gatk VariantEval with known sites: $dbsnp129
