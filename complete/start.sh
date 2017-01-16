@@ -80,7 +80,6 @@ if [ $analysis == "index" ];then
 fi
 
 
-
 ./bqvc.sh ${align_res}/$samplename.indexed.$index_tool.bam $align_res $samplename $reports $email $analysis $vcall_tool
 
 
