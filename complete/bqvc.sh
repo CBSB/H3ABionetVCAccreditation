@@ -94,5 +94,5 @@ java -jar $gatkdir/GenomeAnalysisTK.jar \
 
 
 ################################## Freebayes
-freebayes -f $reference ${align_res}/$samplename.dedup.bam > $vars/$samplename.raw.calls.freebayes.vcf
+freebayes  -= -f $reference ${align_res}/$samplename.dedup.bam > $vars/$samplename.raw.calls.freebayes.vcf
 
