@@ -43,24 +43,21 @@ if [ `expr ${#tool}` -lt 1  ]; then
 		echo -e "##################################################"
 		
 		start=`date `
-		samtools index $inputbam > $align_res/benchmarking/$samplename.indexed.samtools.$i.bam  
+		samtools index $inputbam $align_res/benchmarking/$samplename.indexed.samtools.$i.bai  
 		end=`date `
-		echo -e "samtools_$i\t$start\t$end" >> $reports/timings.$analysis
-		./check_bam.sh ${align_res}/benchmarking/$samplename.indexed.samtools.$i.bam indexing_samtools_$i $reports $samplename $email
+		echo -e "samtools_$i\t$start\t$end" >> $reports/timings.$analysi
                 echo -e "################ samtools index done for $i cores #############"
 		
 		start=`date `
-		sambamba index -t $i $inputbam > $align_res/benchmarking/$samplename.indexed.sambamba.$i.bam  #-l=6
+		sambamba index -t $i $inputbam $align_res/benchmarking/$samplename.indexed.sambamba.$i.bai  #-l=6
 		end=`date `
 		echo -e "sambamba_$i\t$start\t$end" >> $reports/timings.$analysis
-		./check_bam.sh ${align_res}/benchmarking/$samplename.indexed.sambamba.$i.bam indexing_sambamba_$i $reports $samplename $email
 		echo -e "################ sambamba index done for $i cores #############"
 		
 		start=`date `
-		java -jar $picarddir/picard.jar BuildBamIndex I=$inputbam O=$align_res/benchmarking/$samplename.indexed.picard.$i.bam 
+		java -jar $picarddir/picard.jar BuildBamIndex I=$inputbam O=$align_res/benchmarking/$samplename.indexed.picard.$i.bai 
 		end=`date `
 		echo -e "picard_$i\t$start\t$end" >> $reports/timings.$analysis
-		./check_bam.sh ${align_res}/benchmarking/$samplename.indexed.picard.$i.bam indexing_picard_$i $reports $samplename $email
 		echo -e "################ picard index done for $i cores #############"
 
 		# samtools index is not  multi-threaded tool!
@@ -71,29 +68,23 @@ else
 	case $tool in
 	samtools)
 		start=`date `
-		samtools index $inputbam > $align_res/$samplename.indexed.samtools.bam
+		samtools index $inputbam 
 		end=`date `
 		echo -e "samtools\t$start\t$end" >> $reports/timings.$analysis
-		./check_bam.sh ${align_res}/benchmarking/$samplename.indexed.samtools.bam indexing_samtools $reports $samplename $email
 		;;
 	sambamba)
 		start=`date `
-		sambamba index -t 4 $inputbam > $align_res/benchmarking/$samplename.indexed.sambamba.bam	
+		sambamba index -t 4 $inputbam 
 		end=`date `
                 echo -e "sambamba\t$start\t$end" >> $reports/timings.$analysis
-                ./check_bam.sh ${align_res}/benchmarking/$samplename.indexed.sambamba.bam indexing_sambamba $reports $samplename $email
 		;;
 	picard)
 		start=`date `
-		java -jar $picarddir/picard.jar BuildBamIndex I=$inputbam O=$align_res/$samplename.indexed.picard.bam 
+		java -jar $picarddir/picard.jar BuildBamIndex I=$inputbam 
                 end=`date `
                 echo -e "picard\t$start\t$end" >> $reports/timings.$analysis
-                ./check_bam.sh ${align_res}/$samplename.indexed.picard.bam indexing_picard $reports $samplename $email
 		;;
 	novosort)
 		# processing already done in the markdup.sh script! 
-		cp $inputbam $align_res/$samplename.indexed.novosort.bam
-		./check_bam.sh ${align_res}/$samplename.indexed.novosort.bam indexing_novosort $reports $samplename $email
-
 	esac
 fi

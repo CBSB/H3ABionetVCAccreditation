@@ -37,13 +37,13 @@ if [ `expr ${#tool}` -lt 1  ]; then
 		start=`date `
 		bwa mem -M -t $i -R "$rgheader" $bwa_index $read1 $read2  | samtools view -@ $i -bS > ${align_res}/benchmarking/$samplename.aligned.bwa.$i.bam
 		end=`date `
-		echo -e "BWA_$i\t$start\t$end" >> $reports/timings.$analysis
+		echo -e "BWA_$i\t$start\t$end" >> $reports/timings.align
 		./check_bam.sh ${align_res}/benchmarking/$samplename.aligned.bwa.$i.bam Alignment_bwa_$i $reports $samplename $email
 		echo -e "################ BWA done for $i cores #############"
 		start=`date `
 		novoalign -c $i -d $novoalign_index -f $read1 $read2 -o SAM $rgheader | samtools view -@ $i -bS  > ${align_res}/benchmarking/$samplename.aligned.novoalign.$i.bam
 		end=`date `
-		echo -e "Novoalign_$i\t$start\t$end" >> $reports/timings.$analysis
+		echo -e "Novoalign_$i\t$start\t$end" >> $reports/timings.align
 		./check_bam.sh ${align_res}/benchmarking/$samplename.aligned.novoalign.$i.bam Alignment_novoalign_$i $reports $samplename $email
 		echo -e "############## NOVOALIGN done for $i cores ##########"
 	done

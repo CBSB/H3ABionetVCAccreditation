@@ -22,14 +22,14 @@ Mills=${referencedir}/Mills_and_1000G_gold_standard.indels.hg19.sites.vcf
 TG_1000Gindels=${referencedir}/1000G_phase1.indels.hg19.sites.vcf
 TG_1000Gsnps=${referencedir}/1000G_phase1.snps.high_confidence.hg19.sites.vcf
 
-targeted=chr1
+targeted=/home/assessment/data/TruSeq_exome_targeted_regions.hg19.bed
 
 ################################### Specific analysis options and tools
-analysis=sort #{align | sort | dedup}
+analysis=vcall #{align | sort | dedup | index | nothing provokes the entire pipeline :)}
 align_tool=bwa #{bwa | novoalign}
-sort_tool= #{samtools | sambamba| picard | novosort}
-dedup_tool= #{picard | samtools | sambamba | novosort}
-index_tool= #{samtools | sambamba | picard | novosort}
+sort_tool=samtools #{samtools | sambamba| picard | novosort}
+dedup_tool=samtools #{picard | samtools | sambamba | novosort}
+index_tool= samtools #{samtools | sambamba | picard | novosort}
 vcall_tool= #{gatk | freebayes}
 
 ################################### Output directories
@@ -62,7 +62,6 @@ if [ $analysis == "sort" ];then
 	exit
 fi
 
-################################################################### Now, do marking duplicates
 ./markdup.sh $align_res/$samplename.sorted.$sort_tool.bam $align_res $samplename $reports $email $analysis $align_tool $dedup_tool
 
 if [ $analysis == "dedup" ];then
@@ -71,7 +70,6 @@ if [ $analysis == "dedup" ];then
 	exit
 fi
 
-
 ./index.sh ${align_res}/$samplename.dedup.$dedup_tool.bam $align_res $samplename $reports $email $analysis $index_tool
 if [ $analysis == "index" ];then
 	echo -e "\n ###### ANALYSIS = $analysis ends here. Wrapping up and quitting\n" | mail -s "accreditation pipeline" $email
@@ -79,8 +77,7 @@ if [ $analysis == "index" ];then
 	exit
 fi
 
-
-./bqvc.sh ${align_res}/$samplename.indexed.$index_tool.bam $align_res $samplename $reports $email $analysis $vcall_tool
+./bqvc.sh ${align_res}/$samplename.dedup.$dedup_tool.bam $align_res $samplename $reports $email $analysis $reference $targeted $dbsnp138 $Mills $TG_1000Gindels $vcall_tool
 
 
 ## You need to add gatk VariantEval with known sites: $dbsnp129
