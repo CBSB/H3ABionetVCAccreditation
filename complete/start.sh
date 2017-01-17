@@ -25,11 +25,12 @@ TG_1000Gsnps=${referencedir}/1000G_phase1.snps.high_confidence.hg19.sites.vcf
 targeted=/home/assessment/data/TruSeq_exome_targeted_regions.hg19.bed
 
 ################################### Specific analysis options and tools
+processing=normal #{normal | ubam}
 analysis=vcall #{align | sort | dedup | index | nothing provokes the entire pipeline :)}
 align_tool=bwa #{bwa | novoalign}
 sort_tool=samtools #{samtools | sambamba| picard | novosort}
 dedup_tool=samtools #{picard | samtools | sambamba | novosort}
-index_tool= samtools #{samtools | sambamba | picard | novosort}
+index_tool=samtools #{samtools | sambamba | picard | novosort}
 vcall_tool= #{gatk | freebayes}
 
 ################################### Output directories
@@ -46,21 +47,26 @@ dstat -t -c --disk-util --top-cpu --top-io --top-mem -s --output $reports/profil
 dsprocess=$(ps -aux | grep dstat | awk '{ print $2}' |head -n 1)
 echo -e "PROCESS\tSTART_TIME\tEND_TIME" >$reports/timings.$analysis
 
-./align.sh $read1 $read2 $bwa_index $novoalign_index $rgheader $align_res $samplename $reports $email $align_tool
-
-if [ $analysis == "align" ];then
-	echo -e "\n ###### ANALYSIS = $analysis ends here. Wrapping up and quitting\n" | mail -s "accreditation pipeline" $email
-	kill -9 $dsprocess
-	exit
+if [ $processing == "normal" ]; then
+	./align.sh $read1 $read2 $bwa_index $novoalign_index $rgheader $align_res $samplename $reports $email $align_tool
+	if [ $analysis == "align" ];then
+		echo -e "\n ###### ANALYSIS = $analysis ends here. Wrapping up and quitting\n" | mail -s "accreditation pipeline" $email
+		kill -9 $dsprocess
+		exit
+	fi
+	
+	./sort.sh ${align_res}/${samplename}.aligned.${align_tool}.bam $align_res $samplename $reports $email $analysis $sort_tool
+	if [ $analysis == "sort" ];then
+		echo -e "\n ###### ANALYSIS = $analysis ends here. Wrapping up and quitting\n" | mail -s "accreditation pipeline" $email
+		kill -9 $dsprocess
+		exit
+	fi
+elif [ $processing == "ubam" ]; then
+	./ubam_generation.sh $read1 $read2 $bwa_index $novoalign_index $rgheader $align_res $samplename $reports $email $align_tool 
+		
 fi
 
-./sort.sh ${align_res}/${samplename}.aligned.${align_tool}.bam $align_res $samplename $reports $email $analysis $sort_tool
-
-if [ $analysis == "sort" ];then
-	echo -e "\n ###### ANALYSIS = $analysis ends here. Wrapping up and quitting\n" | mail -s "accreditation pipeline" $email
-	kill -9 $dsprocess
-	exit
-fi
+#############################
 
 ./markdup.sh $align_res/$samplename.sorted.$sort_tool.bam $align_res $samplename $reports $email $analysis $align_tool $dedup_tool
 
@@ -77,18 +83,8 @@ if [ $analysis == "index" ];then
 	exit
 fi
 
-./bqvc.sh ${align_res}/$samplename.dedup.$dedup_tool.bam $align_res $samplename $reports $email $analysis $reference $targeted $dbsnp138 $Mills $TG_1000Gindels $vcall_tool
+./bqvc.sh ${align_res}/$samplename.dedup.$dedup_tool.bam $align_res $samplename $reports $email $analysis $reference $targeted $dbsnp138 $Mills $TG_1000Gindels $vars_res $dbsnp129 $vcall_tool
 
-
-## You need to add gatk VariantEval with known sites: $dbsnp129
-
-java -jar $gatkdir/GenomeAnalysisTK.jar \
-        -T VariantEval\
-        -R $reference\
-	-o $result/output.eval.grp\
-	--eval:gatk  $result/joint_called.vcf\
-	-D $dbsnp129\
-	-noEV -EV CompOverlap -EV IndelSummary -EV TiTvVariantEvaluator -EV CountVariants -EV MultiallelicSummary
 
 kill -9 $dsprocess
 
