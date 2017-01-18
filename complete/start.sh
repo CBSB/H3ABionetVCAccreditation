@@ -27,7 +27,7 @@ picarddir="/usr/src/picard-tools/picard-tools-2.6.0"
 gatkdir="/usr/src/gatk/gatk-3.6/"
 
 ################################### Specific analysis options and tools
-processing=normal #{normal | ubam}
+processing=ubam #{normal | ubam}
 analysis=vcall #{align | sort | dedup | index | nothing provokes the entire pipeline :)}
 align_tool=bwa #{bwa | novoalign}
 sort_tool=samtools #{samtools | sambamba| picard | novosort}
@@ -48,7 +48,7 @@ reports=$result/reports
 mkdir -p $qc_res ${align_res} $vars_res $delivery $reports
 
 ############################################# Actual start of the pipeline
-dstat -t -c --disk-util --top-cpu --top-io --top-mem -s --output $reports/profile.complete_pipeline_${analysis}.log 1 18000 &
+#dstat -t -c --disk-util --top-cpu --top-io --top-mem -s --output $reports/profile.complete_pipeline_${analysis}.log 1 18000 &
 dsprocess=$(ps -aux | grep dstat | awk '{ print $2}' |head -n 1)
 echo -e "PROCESS\tSTART_TIME\tEND_TIME" >$reports/timings.$analysis
 
