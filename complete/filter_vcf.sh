@@ -2,16 +2,12 @@
 
 set -x
 rawvcf=$1
-gatkdir=
-reference=$2
-var_res=
+gatkdir=$2
+reference=$3
+var_res=$4
+vcall_tool=$5
+samplename=$6
 
-stage=$2
-reports=$3
-gatkdir=$4
-result=
-email=$7
-samplename=
 ############ Loading needed modules
 set +x
 module load gatk/3.6
@@ -21,27 +17,30 @@ set -x
 
 mkdir $var_res/filteration
 
-########### The measurements
- 
+############# Extracting snps and tabulating results
 java -jar $gatkdir/GenomeAnalysisTK.jar \
 	-T SelectVariants \
         -R $reference \
 	-V $rawvcf \
 	-selectType SNP \
-	-o $var_res/filteration/$stage.snps.vcf
+	-o $var_res/filteration/$samplename.$vcall_tool.snps.vcf
 
-bcftools query -f -H "%CHROM\t%ID\t%QUAL\t[%DP]\t%INFO/DP\t[%GQ]\t%INFO/AB\t[%QD]\t%INFO/MQ\t%INFO/FS\t%INFO/SOR\t%INFO/MQRankSum\t%INFO/ReadPosRankSum\n" $input -o $var_res/filteration/tabulted_annotations.snps.$stage.txt
+if [ $vcall_tool == gatk* ]; then
+	bcftools query -H -f "%CHROM\t%ID\t%QUAL\t[%DP]\t%INFO/DP\t[%GQ]\t%QD\t%MQ\t%FS\t%SOR\t%MQRankSum\t%ReadPosRankSum\n" $var_res/filteration/$vcall_tool.snps.vcf -o $var_res/filteration/$samplename.$stage.tabulted_annotations.snps.txt
+elif [ $vcall_tool == freebayes* ]; then
+	bcftools query -H -f "%CHROM\t%ID\t%QUAL\t[%DP]\t%INFO/DP\t[%GQ]\tAB\t%QD\t%MQ\t%FS\t%SOR\t%MQRankSum\t%ReadPosRankSum\n" $var_res/filteration/$vcall_tool.snps.vcf -o $var_res/filteration/tabulted_annotations.snps.$stage.txt
+fi
 
-## also try this:
- bcftools query -H -f "%CHROM\t%ID\t%QUAL\t[%DP]\t%INFO/DP\t[%GQ]\t%INFO/AB\t%QD\t[%MQ]\t[%FS]\t[%SOR]\t[%MQRankSu]m\t[%ReadPosRankSum]\n" /home/assessment/results/CBSB_Khartoum/variants/CBSB_Khartoum.raw.calls.freebayes.vcf -o tabulated.tmp
-
-
+############ Extracting indels and tabulating results
 java -jar $gatkdir/GenomeAnalysisTK.jar \
         -T SelectVariants \
         -R $reference \
         -V $rawvcf \
         -selectType INDEL \
-        -o $var_res/filteration/$stage.indels.vcf
+        -o $var_res/filteration/$samplename.$vcall_tool.indels.vcf
 
+if [ $vcall_tool == gatk* ]; then
+	bcftools query -H -f "%CHROM\t%ID\t%QUAL\t[%DP]\t%INFO/DP\t[%GQ]\t%QD\t%MQ\t%FS\t%SOR\t%MQRankSum\t%ReadPosRankSum\n" $var_res/filteration/$vcall_tool.snps.vcf -o $var_res/filteration/$samplename.$stage.tabulted_annotations.indels.txt
+elif [ $vcall_tool == freebayes* ]; then
 
-
+fi	
