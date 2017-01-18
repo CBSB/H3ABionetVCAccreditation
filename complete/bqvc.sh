@@ -43,7 +43,7 @@ java -Xmx10g -XX:-UseGCOverheadLimit -jar $gatkdir/GenomeAnalysisTK.jar \
 	-knownSites $dbsnp138\
 	-knownSites $Mills\
 	-knownSites $TG_1000Gindels\
-	-o $reports/${samplename}.recal.table \
+	-o $reports/${samplename}.targeted.recal.table \
 	 -nct 4
 end=`date `
 echo -e "BaseRecalibrator\t$start\t$end" >> $reports/timings.$analysis
@@ -54,11 +54,11 @@ java -jar $gatkdir/GenomeAnalysisTK.jar\
 	-R $reference\
 	-I $inputbam\
 	-BQSR $reports/${samplename}.recal.table\
-	-o $align_res/${samplename}.recal.bam
+	-o $align_res/${samplename}.targeted.recal.bam
  end=`date `
  echo -e "PrintReads\t$start\t$end" >> $reports/timings.$analysis
 
-./check_bam.sh $align_res/${samplename}.recal.bam bqsr_gatk $reports $samplename $email
+./check_bam.sh $align_res/${samplename}.targeted.recal.bam bqsr_gatk $reports $samplename $email
 
 ############################################## Variant calling stage:
 start=`date `
@@ -66,21 +66,21 @@ java -jar $gatkdir/GenomeAnalysisTK.jar \
 	-T HaplotypeCaller\
 	-R $reference\
 	-I $inputbam\
-	-BQSR $reports/${samplename}.recal.table\
+	-BQSR $reports/${samplename}.targeted.recal.table\
 	--dbsnp $dbsnp138 \
-	-o $vars_res/$samplename.raw.calls.haplotypecaller.vcf\
+	-o $vars_res/$samplename.raw.calls.haplotypecaller.targeted.vcf\
 	-L $targeted \
 	-nct 4
 end=`date `
 echo -e "HaplotypeCaller\t$start\t$end" >> $reports/timings.$analysis
 
-./check_vcf.sh $vars_res/$samplename.raw.calls.haplotypecaller.vcf gatk $reports $gatkdir $reference $dbsnp129 $email
+./check_vcf.sh $vars_res/$samplename.raw.calls.haplotypecaller.targeted.vcf gatk $reports $gatkdir $reference $dbsnp129 $email
 
-/filter_vcf.sh $vars_res/$samplename.raw.calls.haplotypecaller.vcf $gatkdir $reference
+/filter_vcf.sh $vars_res/$samplename.raw.calls.haplotypecaller.targeted.vcf $gatkdir $reference
 ################################## Freebayes
 start=`date `
-freebayes -= -f $reference $inputbam > $vars_res/$samplename.raw.calls.freebayes.vcf
+freebayes -t $targeted -= -f $reference $inputbam > $vars_res/$samplename.raw.calls.freebayes.targeted.vcf
 end=`date `
 echo -e "freebayes\t$start\t$end" >> $reports/timings.$analysis
 
-./check_vcf.sh $vars_res/$samplename.raw.calls.freebayes.vcf freebayes $reports $gatkdir $reference $dbsnp129 $email
+./check_vcf.sh $vars_res/$samplename.raw.calls.freebayes.targeted.vcf freebayes $reports $gatkdir $reference $dbsnp129 $email

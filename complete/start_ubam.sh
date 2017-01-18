@@ -27,7 +27,7 @@ picarddir="/usr/src/picard-tools/picard-tools-2.6.0"
 gatkdir="/usr/src/gatk/gatk-3.6/"
 
 ################################### Specific analysis options and tools
-processing=normal #{normal | ubam}
+processing=ubam #{normal | ubam}
 analysis=vcall #{align | sort | dedup | index | nothing provokes the entire pipeline :)}
 align_tool=bwa #{bwa | novoalign}
 sort_tool=samtools #{samtools | sambamba| picard | novosort}

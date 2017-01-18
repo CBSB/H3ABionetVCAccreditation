@@ -75,24 +75,24 @@ else
 	case $tool in
 	samtools)
 		start=`date `
-		samtools sort -o $align_res/$samplename.sorted.samtools.bam -@ 4 $inputbam
+		samtools sort -o $align_res/$samplename.sorted.bam -@ 4 $inputbam
 		end=`date `
 		echo -e "samtools\t$start\t$end" >> $reports/timings.$analysis
-		./check_bam.sh ${align_res}//$samplename.sorted.samtools.bam sorting_samtools $reports $samplename $email
+		./check_bam.sh ${align_res}//$samplename.sorted.bam sorting_samtools $reports $samplename $email
 		;;
 	sambamba)
 		start=`date `
-		sambamba sort -o $align_res//$samplename.sorted.sambamba.bam -t 4 $inputbam
+		sambamba sort -o $align_res//$samplename.sorted.bam -t 4 $inputbam
 end=`date `
                 echo -e "sambamba\t$start\t$end" >> $reports/timings.$analysis
-                ./check_bam.sh ${align_res}//$samplename.sorted.sambamba.bam sorting_sambamba $reports $samplename $email
+                ./check_bam.sh ${align_res}//$samplename.sorted.bam sorting_sambamba $reports $samplename $email
 		;;
 	picard)
 		start=`date `
-		java -jar $picarddir/picard.jar SortSam I=$inputbam O=$align_res//$samplename.sorted.picard.bam SORT_ORDER=coordinate
+		java -jar $picarddir/picard.jar SortSam I=$inputbam O=$align_res//$samplename.sorted.bam SORT_ORDER=coordinate
                 end=`date `
                 echo -e "picard\t$start\t$end" >> $reports/timings.$analysis
-                ./check_bam.sh ${align_res}//$samplename.sorted.picard.bam sorting_picard $reports $samplename $email
+                ./check_bam.sh ${align_res}//$samplename.sorted.bam sorting_picard $reports $samplename $email
 		;;
 	novosort)
 		# nososort is an all-in-one tool. Processing is done in the markduplicates.sh script instead of here

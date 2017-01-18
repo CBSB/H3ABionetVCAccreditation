@@ -16,7 +16,7 @@ module load gatk/3.6
 java -jar $gatkdir/GenomeAnalysisTK.jar \
         -T VariantEval\
         -R $reference\
-        -o $reports/variant.eval.grp\
+        -o $reports/variant.eval.$stage.report\
         --eval:$stage  $file\
         -D $dbsnp129\
         -noEV -EV CompOverlap -EV IndelSummary -EV TiTvVariantEvaluator -EV CountVariants -EV MultiallelicSummary

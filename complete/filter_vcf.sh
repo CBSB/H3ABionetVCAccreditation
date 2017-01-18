@@ -26,9 +26,9 @@ java -jar $gatkdir/GenomeAnalysisTK.jar \
 	-o $var_res/filteration/$samplename.$vcall_tool.snps.vcf
 
 if [ $vcall_tool == gatk* ]; then
-	bcftools query -H -f "%CHROM\t%ID\t%QUAL\t[%DP]\t%INFO/DP\t[%GQ]\t%QD\t%MQ\t%FS\t%SOR\t%MQRankSum\t%ReadPosRankSum\n" $var_res/filteration/$vcall_tool.snps.vcf -o $var_res/filteration/$samplename.$stage.tabulted_annotations.snps.txt
+	bcftools query -H -f "%CHROM\t%ID\t%QUAL\t[%DP]\t%INFO/DP\t[%GQ]\t%QD\t%MQ\t%FS\t%SOR\n" $var_res/filteration/$vcall_tool.snps.vcf -o $var_res/filteration/$samplename.$stage.tabulted_annotations.snps.txt
 elif [ $vcall_tool == freebayes* ]; then
-	bcftools query -H -f "%CHROM\t%ID\t%QUAL\t[%DP]\t%INFO/DP\t[%GQ]\tAB\t%QD\t%MQ\t%FS\t%SOR\t%MQRankSum\t%ReadPosRankSum\n" $var_res/filteration/$vcall_tool.snps.vcf -o $var_res/filteration/tabulted_annotations.snps.$stage.txt
+	bcftools query -H -f "%CHROM\t%POS\t%QUAL\t[%DP]\t%INFO/DP\t[%GQ]\t%AB\n" $var_res/filteration/$vcall_tool.snps.vcf -o $var_res/filteration/tabulted_annotations.snps.$stage.txt
 fi
 
 ############ Extracting indels and tabulating results
