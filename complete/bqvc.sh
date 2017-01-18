@@ -87,3 +87,6 @@ echo -e "freebayes\t$start\t$end" >> $reports/timings.$analysis
 
 ./filter_vcf.sh $vars_res/$samplename.raw.calls.freebayes.targeted.vcf $gatkdir $reference $vars_res freebayes $samplename
 
+
+#################################### Validate both vcf files:
+./compare_vcfs.sh  $vars_res/$samplename.raw.calls.haplotypecaller.targeted.vcf $vars_res/$samplename.raw.calls.freebayes.targeted.vcf
