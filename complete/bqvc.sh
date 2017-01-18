@@ -76,7 +76,7 @@ echo -e "HaplotypeCaller\t$start\t$end" >> $reports/timings.$analysis
 
 ./check_vcf.sh $vars_res/$samplename.raw.calls.haplotypecaller.targeted.vcf gatk $reports $gatkdir $reference $dbsnp129 $email
 
-/filter_vcf.sh $vars_res/$samplename.raw.calls.haplotypecaller.targeted.vcf $gatkdir $reference
+./filter_vcf.sh $vars_res/$samplename.raw.calls.haplotypecaller.targeted.vcf $gatkdir $reference $vars_res gatk $samplename
 ################################## Freebayes
 start=`date `
 freebayes -t $targeted -= -f $reference $inputbam > $vars_res/$samplename.raw.calls.freebayes.targeted.vcf
@@ -84,3 +84,6 @@ end=`date `
 echo -e "freebayes\t$start\t$end" >> $reports/timings.$analysis
 
 ./check_vcf.sh $vars_res/$samplename.raw.calls.freebayes.targeted.vcf freebayes $reports $gatkdir $reference $dbsnp129 $email
+
+./filter_vcf.sh $vars_res/$samplename.raw.calls.freebayes.targeted.vcf $gatkdir $reference $vars_res freebayes $samplename
+
