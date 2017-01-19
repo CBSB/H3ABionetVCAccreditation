@@ -53,7 +53,7 @@ java -jar $gatkdir/GenomeAnalysisTK.jar\
 	-T PrintReads\
 	-R $reference\
 	-I $inputbam\
-	-BQSR $reports/${samplename}.recal.table\
+	-BQSR $reports/${samplename}.targeted.recal.table\
 	-o $align_res/${samplename}.targeted.recal.bam
  end=`date `
  echo -e "PrintReads\t$start\t$end" >> $reports/timings.$analysis

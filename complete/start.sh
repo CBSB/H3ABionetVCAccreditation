@@ -3,7 +3,7 @@
 ############################################# Analysis variables:
 set -x
 echo -e "This analysis is starting at \t `date`"
-projectdir=/home/assessment
+projectdir=/home/CBSB_UofK.Chr1_50X.set1
 email=azzaea@gmail.com
 
 result=${projectdir}/results
@@ -27,7 +27,7 @@ picarddir="/usr/src/picard-tools/picard-tools-2.6.0"
 gatkdir="/usr/src/gatk/gatk-3.6/"
 
 ################################### Specific analysis options and tools
-processing=normal #{normal | ubam}
+processing=ubam #{normal | ubam}
 analysis=vcall #{align | sort | dedup | index | nothing provokes the entire pipeline :)}
 align_tool=bwa #{bwa | novoalign}
 sort_tool=samtools #{samtools | sambamba| picard | novosort}
@@ -67,7 +67,7 @@ if [ $processing == "normal" ]; then
 		exit
 	fi
 elif [ $processing == "ubam" ]; then
-	./ubam_generation.sh $picarddir $read1 $read2 $align_res $samplename $result $reports $bwa_index  
+	./ubam_generation.sh $picarddir $read1 $read2 $align_res $samplename $result $reports $bwa_index $reference 
 fi
 
 #############################

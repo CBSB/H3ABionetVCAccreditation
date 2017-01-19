@@ -3,7 +3,7 @@
 # Removing mapping artifacts (clipping end of reference, missing mates, reads splitting into adapters...), sorting reads by mapping position, adding read group info if needed and adding cigar information
 
 set -x
-if [ $# -lt 8 ]; then
+if [ $# -lt 9 ]; then
    echo -e "$0: error in calling the script, revise the arguments!" |  mail -s "accreditation pipeline" azzaea@gmail.com
    exit
 fi
@@ -16,6 +16,7 @@ samplename=$5
 results=$6
 reports=$7
 bwa_index=$8
+reference=$9
 
 mkdir $results/tmp
 
@@ -36,7 +37,7 @@ set -o pipefail # stop the pipeline if any step reported an error
 
 java -Xmx8G -jar $picarddir/picard.jar SamToFastq I=$align_res/markilluminaadapters.bam FASTQ=/dev/stdout CLIPPING_ATTRIBUTE=XT  CLIPPING_ACTION=2 INTERLEAVE=true NON_PF=true | \
 bwa mem -M -t 4 -p $bwa_index /dev/stdin| \
-java -Xmx16G -jar $picarddir/picard.jar MergeBamAlignment ALIGNED_BAM=/dev/stdin UNMAPPED_BAM=$align_res/unmappedbam.sam O=$align_res/$samplename.sorted.bam R=$reference/ucsc.hg19.fasta CREATE_INDEX=true ADD_MATE_CIGAR=true CLIP_ADAPTERS=true CLIP_OVERLAPPING_READS=true INCLUDE_SECONDARY_ALIGNMENTS=true MAX_INSERTIONS_OR_DELETIONS=-1 PRIMARY_ALIGNMENT_STRATEGY=BestMapq ATTRIBUTES_TO_RETAIN=XS ALIGNER_PROPER_PAIR_FLAGS=false UNMAP_CONTAMINANT_READS=true TMP_DIR=$results/tmp 
+java -Xmx16G -jar $picarddir/picard.jar MergeBamAlignment ALIGNED_BAM=/dev/stdin UNMAPPED_BAM=$align_res/unmappedbam.sam O=$align_res/$samplename.sorted.bam R=$reference CREATE_INDEX=true ADD_MATE_CIGAR=true CLIP_ADAPTERS=true CLIP_OVERLAPPING_READS=true INCLUDE_SECONDARY_ALIGNMENTS=true MAX_INSERTIONS_OR_DELETIONS=-1 PRIMARY_ALIGNMENT_STRATEGY=BestMapq ATTRIBUTES_TO_RETAIN=XS ALIGNER_PROPER_PAIR_FLAGS=false UNMAP_CONTAMINANT_READS=true TMP_DIR=$results/tmp 
 
 
 # A piped option would be preferred for the 3 steps that follow should more samples be involved (saves memory & speed) --> Something about different performance though, so better if one checks!
