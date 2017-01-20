@@ -6,7 +6,7 @@ echo -e "This analysis is starting at \t `date`"
 projectdir=/home/CBSB_UofK.Chr1_50X.set1
 email=azzaea@gmail.com
 
-result=${projectdir}/results
+result=${projectdir}/results_2
 samplename=CBSB_Khartoum
 read1=${projectdir}/data/reads/H3A_NextGen_assessment.Chr1_50X.set1_read1.fq
 read2=${projectdir}/data/reads/H3A_NextGen_assessment.Chr1_50X.set1_read2.fq
@@ -27,7 +27,7 @@ picarddir="/usr/src/picard-tools/picard-tools-2.6.0"
 gatkdir="/usr/src/gatk/gatk-3.6/"
 
 ################################### Specific analysis options and tools
-processing=ubam #{normal | ubam}
+processing=normal #{normal | ubam}
 analysis=vcall #{align | sort | dedup | index | nothing provokes the entire pipeline :)}
 align_tool=bwa #{bwa | novoalign}
 sort_tool=samtools #{samtools | sambamba| picard | novosort}
@@ -43,7 +43,7 @@ qc_res=$result/${samplename}/qc
 align_res=${result}/$samplename/align
 vars_res=${result}/$samplename/variants
 delivery=$result/delivery 
-reports=$result/reports
+reports=$result/tools_reports
 
 mkdir -p $qc_res ${align_res} $vars_res $delivery $reports
 
@@ -71,6 +71,8 @@ elif [ $processing == "ubam" ]; then
 fi
 
 #############################
+
+./coverag.sh $align_res/$samplename.sorted.bam $targeted $reports $samplename
 
 ./markdup.sh $align_res/$samplename.sorted.bam $align_res $samplename $reports $email $analysis $align_tool $dedup_tool
 

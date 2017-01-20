@@ -1,8 +1,0 @@
-#!/bin/bash
-
-align=/home/aeahmed/assessment/results/run1/CBSB_Khartoum/align
-rawbam=CBSB_Khartoum.bam
-dedup=CBSB_Khartoum.dedup.bam
-
-module load deepTools/1.6.0
-bamPEFragmentSize -b $align/$rawbam $align/$dedup -hist /home/aeahmed/assessment/results/fragment  
