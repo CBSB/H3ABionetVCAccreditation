@@ -22,7 +22,7 @@ Mills=${referencedir}/Mills_and_1000G_gold_standard.indels.hg19.sites.vcf
 TG_1000Gindels=${referencedir}/1000G_phase1.indels.hg19.sites.vcf
 TG_1000Gsnps=${referencedir}/1000G_phase1.snps.high_confidence.hg19.sites.vcf
 
-targeted=/home/assessment/data/TruSeq_exome_targeted_regions.hg19.bed
+targeted=$projectdir/data/TruSeq_exome_targeted_regions.hg19.bed
 picarddir="/usr/src/picard-tools/picard-tools-2.6.0"
 gatkdir="/usr/src/gatk/gatk-3.6/"
 
@@ -42,18 +42,19 @@ fi
 qc_res=$result/${samplename}/qc
 align_res=${result}/$samplename/align
 vars_res=${result}/$samplename/variants
-delivery=$result/delivery 
 reports=$result/tools_reports
 
-mkdir -p $qc_res ${align_res} $vars_res $delivery $reports
+mkdir -p $qc_res ${align_res} $vars_res $reports
 
 ############################################# Actual start of the pipeline
-#dstat -t -c --disk-util --top-cpu --top-io --top-mem -s --output $reports/profile.complete_pipeline_${analysis}.log 1 18000 &
+dstat -t -c --disk-util --top-cpu --top-io --top-mem -s --output $reports/profile.complete_pipeline_${analysis}.log 1 18000 &
 dsprocess=$(ps -aux | grep dstat | awk '{ print $2}' |head -n 1)
 echo -e "PROCESS\tSTART_TIME\tEND_TIME" >$reports/timings.$analysis
 
+./fastqc.sh $read1 $read2 $qc_res
+
 if [ $processing == "normal" ]; then
-	./align.sh $read1 $read2 $bwa_index $novoalign_index $rgheader $align_res $samplename $reports $email $align_tool
+	./align.sh $read1 $read2 $bwa_index $novoalign_index $rgheader $align_res $samplename $reports $email $analysis $align_tool
 	if [ $analysis == "align" ];then
 		echo -e "\n ###### ANALYSIS = $analysis ends here. Wrapping up and quitting\n" | mail -s "accreditation pipeline" $email
 		kill -9 $dsprocess
@@ -72,7 +73,7 @@ fi
 
 #############################
 
-./coverag.sh $align_res/$samplename.sorted.bam $targeted $reports $samplename
+./coverage.sh $align_res/$samplename.sorted.bam $targeted $reports $samplename
 
 ./markdup.sh $align_res/$samplename.sorted.bam $align_res $samplename $reports $email $analysis $align_tool $dedup_tool
 

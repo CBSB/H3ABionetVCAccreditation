@@ -1,0 +1,273 @@
+nohup: ignoring input
+INFO  14:47:09,139 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  14:47:09,142 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.6-0-g89b7209, Compiled 2016/06/01 22:27:29 
+INFO  14:47:09,142 HelpFormatter - Copyright (c) 2010-2016 The Broad Institute 
+INFO  14:47:09,142 HelpFormatter - For support and documentation go to https://www.broadinstitute.org/gatk 
+INFO  14:47:09,142 HelpFormatter - [Sun Jan 22 14:47:09 EAT 2017] Executing on Linux 4.4.0-34-generic amd64 
+INFO  14:47:09,143 HelpFormatter - Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14 JdkDeflater 
+INFO  14:47:09,146 HelpFormatter - Program Args: -T BaseRecalibrator -R /home/CBSB_UofK.Chr1_50X.set1/data/genome/hg19//ucsc.hg19.fasta -I /home/CBSB_UofK.Chr1_50X.set1/results_2/CBSB_Khartoum/align/CBSB_Khartoum.dedup.picard.bam -L /home/CBSB_UofK.Chr1_50X.set1/data/TruSeq_exome_targeted_regions.hg19.bed -knownSites /home/CBSB_UofK.Chr1_50X.set1/data/genome/hg19//dbsnp_138.hg19.vcf -knownSites /home/CBSB_UofK.Chr1_50X.set1/data/genome/hg19//Mills_and_1000G_gold_standard.indels.hg19.sites.vcf -knownSites /home/CBSB_UofK.Chr1_50X.set1/data/genome/hg19//1000G_phase1.indels.hg19.sites.vcf -o /home/CBSB_UofK.Chr1_50X.set1/results_2/tools_reports/CBSB_Khartoum.targeted.recal.table -nct 4 
+INFO  14:47:09,149 HelpFormatter - Executing as aeahmed@bionet on Linux 4.4.0-34-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14. 
+INFO  14:47:09,150 HelpFormatter - Date/Time: 2017/01/22 14:47:09 
+INFO  14:47:09,150 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  14:47:09,150 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  14:47:09,160 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  14:47:09,262 GenomeAnalysisEngine - Downsampling Settings: No downsampling 
+INFO  14:47:09,269 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  14:47:09,303 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.03 
+INFO  14:47:10,492 IntervalUtils - Processing 62085286 bp from intervals 
+INFO  14:47:10,507 MicroScheduler - Running the GATK in parallel mode with 4 total threads, 4 CPU thread(s) for each of 1 data thread(s), of 24 processors available on this machine 
+INFO  14:47:10,569 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  14:47:10,831 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  14:47:10,832 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  14:47:10,832 ProgressMeter -                 | processed |    time |    per 1M |           |   total | remaining 
+INFO  14:47:10,832 ProgressMeter -        Location |     reads | elapsed |     reads | completed | runtime |   runtime 
+INFO  14:47:10,863 BaseRecalibrator - The covariates being used here:  
+INFO  14:47:10,864 BaseRecalibrator - 	ReadGroupCovariate 
+INFO  14:47:10,864 BaseRecalibrator - 	QualityScoreCovariate 
+INFO  14:47:10,864 BaseRecalibrator - 	ContextCovariate 
+INFO  14:47:10,865 ContextCovariate - 		Context sizes: base substitution model 2, indel substitution model 3 
+INFO  14:47:10,865 BaseRecalibrator - 	CycleCovariate 
+INFO  14:47:10,867 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:47:11,150 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:47:40,837 ProgressMeter -   chr1:23419293    600007.0    30.0 s      50.0 s        1.4%    35.2 m      34.7 m 
+INFO  14:48:10,840 ProgressMeter -   chr1:53736751   1600024.0    60.0 s      37.0 s        3.3%    30.7 m      29.7 m 
+INFO  14:48:40,843 ProgressMeter -  chr1:118472274   2400036.0    90.0 s      37.0 s        5.2%    28.9 m      27.4 m 
+INFO  14:49:10,848 ProgressMeter -  chr1:171504643   3300050.0   120.0 s      36.0 s        7.1%    28.1 m      26.1 m 
+INFO  14:49:40,854 ProgressMeter -  chr1:225589425   4200063.0     2.5 m      35.0 s        9.1%    27.4 m      24.9 m 
+INFO  14:49:53,619 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:49:54,080 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:49:54,201 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:49:54,466 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:10,541 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:10,696 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:10,733 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:10,859 ProgressMeter -   chr3:49724485   4702855.0     3.0 m      38.0 s       18.9%    15.9 m      12.9 m 
+INFO  14:50:10,930 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:10,951 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:11,351 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:11,373 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:11,705 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:11,728 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:11,911 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:11,933 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:12,218 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:12,239 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:12,530 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:12,556 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:12,973 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:13,007 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:13,538 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:13,570 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:13,660 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:13,669 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:13,866 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:13,884 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:14,152 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:14,176 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:14,527 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:14,544 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:14,998 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:15,029 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:15,128 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:15,134 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:16,475 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:19,752 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:19,932 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:19,943 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:20,071 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:20,077 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:20,378 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:20,388 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:20,567 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:20,582 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:20,582 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:20,606 BaseRecalibrator - Calculating quantized quality scores... 
+INFO  14:50:20,635 BaseRecalibrator - Writing recalibration report... 
+INFO  14:50:21,626 BaseRecalibrator - ...done! 
+INFO  14:50:21,627 BaseRecalibrator - BaseRecalibrator was able to recalibrate 4703138 reads 
+INFO  14:50:21,633 ProgressMeter -            done   4703138.0     3.2 m      40.0 s       84.4%     3.8 m      35.0 s 
+INFO  14:50:21,633 ProgressMeter - Total runtime 190.80 secs, 3.18 min, 0.05 hours 
+INFO  14:50:21,634 MicroScheduler - 39437 reads were filtered out during the traversal out of approximately 4742575 total reads (0.83%) 
+INFO  14:50:21,634 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  14:50:21,634 MicroScheduler -   -> 7384 reads (0.16% of total) failing DuplicateReadFilter 
+INFO  14:50:21,634 MicroScheduler -   -> 0 reads (0.00% of total) failing FailsVendorQualityCheckFilter 
+INFO  14:50:21,634 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+INFO  14:50:21,634 MicroScheduler -   -> 0 reads (0.00% of total) failing MappingQualityUnavailableFilter 
+INFO  14:50:21,634 MicroScheduler -   -> 32046 reads (0.68% of total) failing MappingQualityZeroFilter 
+INFO  14:50:21,635 MicroScheduler -   -> 7 reads (0.00% of total) failing NotPrimaryAlignmentFilter 
+INFO  14:50:21,635 MicroScheduler -   -> 0 reads (0.00% of total) failing UnmappedReadFilter 
+------------------------------------------------------------------------------------------
+Done. There were no warn messages.
+------------------------------------------------------------------------------------------
+INFO  14:50:23,834 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  14:50:23,837 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.6-0-g89b7209, Compiled 2016/06/01 22:27:29 
+INFO  14:50:23,838 HelpFormatter - Copyright (c) 2010-2016 The Broad Institute 
+INFO  14:50:23,838 HelpFormatter - For support and documentation go to https://www.broadinstitute.org/gatk 
+INFO  14:50:23,838 HelpFormatter - [Sun Jan 22 14:50:23 EAT 2017] Executing on Linux 4.4.0-34-generic amd64 
+INFO  14:50:23,839 HelpFormatter - Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14 JdkDeflater 
+INFO  14:50:23,843 HelpFormatter - Program Args: -T BaseRecalibrator -R /home/CBSB_UofK.Chr1_50X.set1/data/genome/hg19//ucsc.hg19.fasta -I /home/CBSB_UofK.Chr1_50X.set1/results_2/CBSB_Khartoum/align/CBSB_Khartoum.dedup.picard.bam -L /home/CBSB_UofK.Chr1_50X.set1/data/TruSeq_exome_targeted_regions.hg19.bed -knownSites /home/CBSB_UofK.Chr1_50X.set1/data/genome/hg19//dbsnp_138.hg19.vcf -knownSites /home/CBSB_UofK.Chr1_50X.set1/data/genome/hg19//Mills_and_1000G_gold_standard.indels.hg19.sites.vcf -knownSites /home/CBSB_UofK.Chr1_50X.set1/data/genome/hg19//1000G_phase1.indels.hg19.sites.vcf -BQSR /home/CBSB_UofK.Chr1_50X.set1/results_2/tools_reports/CBSB_Khartoum.targeted.recal.table -o /home/CBSB_UofK.Chr1_50X.set1/results_2/tools_reports/CBSB_Khartoum.targeted.recal.table.after -nct 4 
+INFO  14:50:23,846 HelpFormatter - Executing as aeahmed@bionet on Linux 4.4.0-34-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14. 
+INFO  14:50:23,846 HelpFormatter - Date/Time: 2017/01/22 14:50:23 
+INFO  14:50:23,846 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  14:50:23,847 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  14:50:23,859 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  14:50:24,335 ContextCovariate - 		Context sizes: base substitution model 2, indel substitution model 3 
+INFO  14:50:24,376 GenomeAnalysisEngine - Downsampling Settings: No downsampling 
+INFO  14:50:24,391 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  14:50:24,431 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.04 
+INFO  14:50:25,640 IntervalUtils - Processing 62085286 bp from intervals 
+INFO  14:50:25,655 MicroScheduler - Running the GATK in parallel mode with 4 total threads, 4 CPU thread(s) for each of 1 data thread(s), of 24 processors available on this machine 
+INFO  14:50:25,726 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  14:50:25,931 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  14:50:25,931 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  14:50:25,932 ProgressMeter -                 | processed |    time |    per 1M |           |   total | remaining 
+INFO  14:50:25,932 ProgressMeter -        Location |     reads | elapsed |     reads | completed | runtime |   runtime 
+INFO  14:50:25,954 BaseRecalibrator - The covariates being used here:  
+INFO  14:50:25,955 BaseRecalibrator - 	ReadGroupCovariate 
+INFO  14:50:25,955 BaseRecalibrator - 	QualityScoreCovariate 
+INFO  14:50:25,955 BaseRecalibrator - 	ContextCovariate 
+INFO  14:50:25,955 ContextCovariate - 		Context sizes: base substitution model 2, indel substitution model 3 
+INFO  14:50:25,955 BaseRecalibrator - 	CycleCovariate 
+INFO  14:50:25,958 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:50:26,203 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:50:55,936 ProgressMeter -    chr1:2979453         0.0    30.0 s      49.6 w        0.3%     3.2 h       3.2 h 
+INFO  14:51:25,939 ProgressMeter -   chr1:14142962    300004.0    60.0 s       3.3 m        0.9%   116.0 m     115.0 m 
+INFO  14:51:55,941 ProgressMeter -   chr1:23209052    600007.0    90.0 s       2.5 m        1.4%   107.1 m     105.6 m 
+INFO  14:52:25,943 ProgressMeter -   chr1:28218273    800009.0   120.0 s       2.5 m        1.8%   109.6 m     107.6 m 
+INFO  14:52:55,947 ProgressMeter -   chr1:40424481   1200015.0     2.5 m       2.1 m        2.6%    97.3 m      94.8 m 
+INFO  14:53:25,951 ProgressMeter -   chr1:53153420   1500022.0     3.0 m     120.0 s        3.2%    93.5 m      90.5 m 
+INFO  14:53:55,954 ProgressMeter -   chr1:84837743   1800026.0     3.5 m     116.0 s        3.9%    89.1 m      85.6 m 
+INFO  14:54:25,957 ProgressMeter -  chr1:110032800   2100032.0     4.0 m     114.0 s        4.7%    85.3 m      81.3 m 
+INFO  14:54:55,961 ProgressMeter -  chr1:145473963   2400036.0     4.5 m     112.0 s        5.3%    84.3 m      79.8 m 
+INFO  14:55:25,968 ProgressMeter -  chr1:153784417   2700043.0     5.0 m     111.0 s        5.9%    84.1 m      79.1 m 
+INFO  14:55:56,046 ProgressMeter -  chr1:158736144   3000046.0     5.5 m     110.0 s        6.5%    84.5 m      79.0 m 
+INFO  14:56:26,048 ProgressMeter -  chr1:173720917   3400051.0     6.0 m     105.0 s        7.2%    83.5 m      77.5 m 
+INFO  14:56:56,051 ProgressMeter -  chr1:201751513   3700055.0     6.5 m     105.0 s        8.0%    80.9 m      74.4 m 
+INFO  14:57:26,054 ProgressMeter -  chr1:210015798   4000060.0     7.0 m     105.0 s        8.6%    80.9 m      73.9 m 
+INFO  14:57:56,060 ProgressMeter -  chr1:229424685   4300064.0     7.5 m     104.0 s        9.4%    80.2 m      72.7 m 
+INFO  14:58:15,064 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:15,512 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:15,632 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:15,871 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:26,061 ProgressMeter -  chr1:249213391   4700068.0     8.0 m     102.0 s       10.0%    79.7 m      71.7 m 
+INFO  14:58:31,012 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:31,181 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:31,218 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:31,421 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:31,441 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:31,808 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:31,829 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:32,137 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:32,165 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:32,338 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:32,359 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:32,640 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:32,656 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:32,942 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:32,968 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:33,366 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:33,399 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:33,915 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:33,942 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:34,027 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:34,035 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:34,228 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:34,248 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:34,524 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:34,543 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:34,898 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:34,914 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:35,382 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:35,406 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:35,504 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:35,510 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:36,819 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:39,894 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:40,066 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:40,077 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:40,190 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:40,195 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:40,481 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:40,489 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:40,662 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:40,676 ReadShardBalancer$1 - Loading BAM index data 
+INFO  14:58:40,676 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  14:58:40,701 BaseRecalibrator - Calculating quantized quality scores... 
+INFO  14:58:40,721 BaseRecalibrator - Writing recalibration report... 
+INFO  14:58:41,793 BaseRecalibrator - ...done! 
+INFO  14:58:41,794 BaseRecalibrator - BaseRecalibrator was able to recalibrate 4703138 reads 
+INFO  14:58:41,802 ProgressMeter -            done   4703138.0     8.3 m     105.0 s       84.4%     9.8 m      91.0 s 
+INFO  14:58:41,802 ProgressMeter - Total runtime 495.87 secs, 8.26 min, 0.14 hours 
+INFO  14:58:41,802 MicroScheduler - 39437 reads were filtered out during the traversal out of approximately 4742575 total reads (0.83%) 
+INFO  14:58:41,802 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  14:58:41,803 MicroScheduler -   -> 7384 reads (0.16% of total) failing DuplicateReadFilter 
+INFO  14:58:41,803 MicroScheduler -   -> 0 reads (0.00% of total) failing FailsVendorQualityCheckFilter 
+INFO  14:58:41,803 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+INFO  14:58:41,803 MicroScheduler -   -> 0 reads (0.00% of total) failing MappingQualityUnavailableFilter 
+INFO  14:58:41,803 MicroScheduler -   -> 32046 reads (0.68% of total) failing MappingQualityZeroFilter 
+INFO  14:58:41,803 MicroScheduler -   -> 7 reads (0.00% of total) failing NotPrimaryAlignmentFilter 
+INFO  14:58:41,803 MicroScheduler -   -> 0 reads (0.00% of total) failing UnmappedReadFilter 
+------------------------------------------------------------------------------------------
+Done. There were no warn messages.
+------------------------------------------------------------------------------------------
+INFO  14:58:44,019 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  14:58:44,022 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.6-0-g89b7209, Compiled 2016/06/01 22:27:29 
+INFO  14:58:44,022 HelpFormatter - Copyright (c) 2010-2016 The Broad Institute 
+INFO  14:58:44,022 HelpFormatter - For support and documentation go to https://www.broadinstitute.org/gatk 
+INFO  14:58:44,022 HelpFormatter - [Sun Jan 22 14:58:44 EAT 2017] Executing on Linux 4.4.0-34-generic amd64 
+INFO  14:58:44,022 HelpFormatter - Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14 JdkDeflater 
+INFO  14:58:44,027 HelpFormatter - Program Args: -T AnalyzeCovariates -R /home/CBSB_UofK.Chr1_50X.set1/data/genome/hg19//ucsc.hg19.fasta -L /home/CBSB_UofK.Chr1_50X.set1/data/TruSeq_exome_targeted_regions.hg19.bed -before /home/CBSB_UofK.Chr1_50X.set1/results_2/tools_reports/CBSB_Khartoum.targeted.recal.table -after /home/CBSB_UofK.Chr1_50X.set1/results_2/tools_reports/CBSB_Khartoum.targeted.recal.table.after -plots /home/CBSB_UofK.Chr1_50X.set1/results_2/tools_reports/CBSB_Khartoum.recalibration_plots.pdf 
+INFO  14:58:44,030 HelpFormatter - Executing as aeahmed@bionet on Linux 4.4.0-34-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14. 
+INFO  14:58:44,030 HelpFormatter - Date/Time: 2017/01/22 14:58:44 
+INFO  14:58:44,031 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  14:58:44,031 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  14:58:44,035 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  14:58:44,139 GenomeAnalysisEngine - Downsampling Settings: Method: BY_SAMPLE, Target Coverage: 1000 
+INFO  14:58:45,215 IntervalUtils - Processing 62085286 bp from intervals 
+INFO  14:58:45,335 GenomeAnalysisEngine - Preparing for traversal 
+INFO  14:58:45,392 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  14:58:45,394 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  14:58:45,394 ProgressMeter -                 | processed |    time |    per 1M |           |   total | remaining 
+INFO  14:58:45,394 ProgressMeter -        Location |     sites | elapsed |     sites | completed | runtime |   runtime 
+INFO  14:58:45,832 ContextCovariate - 		Context sizes: base substitution model 2, indel substitution model 3 
+INFO  14:58:46,044 ContextCovariate - 		Context sizes: base substitution model 2, indel substitution model 3 
+INFO  14:58:46,068 AnalyzeCovariates - Generating csv file '/tmp/AnalyzeCovariates4905234724260545972.csv' 
+INFO  14:58:46,248 AnalyzeCovariates - Generating plots file '/home/CBSB_UofK.Chr1_50X.set1/results_2/tools_reports/CBSB_Khartoum.recalibration_plots.pdf' 
+INFO  14:58:51,844 Walker - [REDUCE RESULT] Traversal result is: org.broadinstitute.gatk.tools.walkers.bqsr.AnalyzeCovariates$None@4f3e65f4 
+INFO  14:58:51,847 ProgressMeter -            done         0.0     6.0 s      10.7 w      100.0%     6.0 s       0.0 s 
+INFO  14:58:51,848 ProgressMeter - Total runtime 6.45 secs, 0.11 min, 0.00 hours 
+------------------------------------------------------------------------------------------
+Done. There were no warn messages.
+------------------------------------------------------------------------------------------
+####################################################################
+Program exit status 0
+INFO  14:58:53,997 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  14:58:53,999 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.6-0-g89b7209, Compiled 2016/06/01 22:27:29 
+INFO  14:58:53,999 HelpFormatter - Copyright (c) 2010-2016 The Broad Institute 
+INFO  14:58:53,999 HelpFormatter - For support and documentation go to https://www.broadinstitute.org/gatk 
+INFO  14:58:54,000 HelpFormatter - [Sun Jan 22 14:58:53 EAT 2017] Executing on Linux 4.4.0-34-generic amd64 
+INFO  14:58:54,000 HelpFormatter - Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14 JdkDeflater 
+INFO  14:58:54,003 HelpFormatter - Program Args: -T AnalyzeCovariates -R /home/CBSB_UofK.Chr1_50X.set1/data/genome/hg19//human_g1k_v37_chr20.fa -before /home/CBSB_UofK.Chr1_50X.set1/results_2/CBSB_Khartoum/align/recal.table.default -after /home/CBSB_UofK.Chr1_50X.set1/results_2/CBSB_Khartoum/align/recal.table.default.after -plots /home/CBSB_UofK.Chr1_50X.set1/results_2/CBSB_Khartoum/align/recalibration_plots.default.pdf 
+INFO  14:58:54,007 HelpFormatter - Executing as aeahmed@bionet on Linux 4.4.0-34-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_91-b14. 
+INFO  14:58:54,008 HelpFormatter - Date/Time: 2017/01/22 14:58:53 
+INFO  14:58:54,008 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  14:58:54,008 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  14:58:54,014 GenomeAnalysisEngine - Strictness is SILENT 
+##### ERROR ------------------------------------------------------------------------------------------
+##### ERROR A USER ERROR has occurred (version 3.6-0-g89b7209): 
+##### ERROR
+##### ERROR This means that one or more arguments or inputs in your command are incorrect.
+##### ERROR The error message below tells you what is the problem.
+##### ERROR
+##### ERROR If the problem is an invalid argument, please check the online documentation guide
+##### ERROR (or rerun your command with --help) to view allowable command-line arguments for this tool.
+##### ERROR
+##### ERROR Visit our website and forum for extensive documentation and answers to 
+##### ERROR commonly asked questions https://www.broadinstitute.org/gatk
+##### ERROR
+##### ERROR Please do NOT post this error to the GATK forum unless you have really tried to fix it yourself.
+##### ERROR
+##### ERROR MESSAGE: The fasta file you specified (/home/CBSB_UofK.Chr1_50X.set1/data/genome/hg19/human_g1k_v37_chr20.fa) does not exist.
+##### ERROR ------------------------------------------------------------------------------------------
+####################################################################
+Program exit status 1

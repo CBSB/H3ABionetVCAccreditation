@@ -4,7 +4,7 @@
 
 # the output should be saved in align_res, and specify the tool used for alginment and resources!
 set -x
-if [ $# -lt 9 ]; then
+if [ $# -lt 10 ]; then
    echo -e "$0: error in calling the script, revise the arguments!" |  mail -s "accreditation pipeline" azzaea@gmail.com
    exit
 fi
@@ -17,7 +17,8 @@ align_res=$6
 samplename=$7
 reports=$8
 email=$9
-tool=${10}
+analysis=${10}
+tool=${11}
 
 set +x
 module load bwa/0.7.15
