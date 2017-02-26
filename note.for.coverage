@@ -1,0 +1,6 @@
+Regenerate the coverage file using:
+
+
+sed -n '/chr1:/p' $targeted  > $reports/targeted.regions.chr1.hg19.bed
+
+targeted=$reports/targeted.regions.chr1.hg19.bed
